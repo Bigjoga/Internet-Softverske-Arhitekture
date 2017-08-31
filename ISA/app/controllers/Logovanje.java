@@ -1,0 +1,88 @@
+package controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import models.Korisnik;
+import models.Restoran;
+import models.UlogaKorisnika;
+import play.mvc.Controller;
+
+public class Logovanje extends Controller{
+
+	public static void show(String mode)
+	{
+		if(mode == null || mode.equals(""))
+			mode = "login";
+		render(mode);
+	}
+	
+	public static void login(Korisnik korisnik)
+	{
+		List<Korisnik> k = Korisnik.findAll();
+		boolean naslo = false;
+		
+		for(Korisnik kor : k)
+		{
+			if(kor.email.equals(korisnik.email) && kor.sifra.equals(korisnik.sifra))
+			{
+				naslo = true;
+				System.out.println("NASLO KORISNIKA ---> " + kor.email.toString());
+				System.out.println("NASLO SIFRU KORISNIKA ---> " + kor.sifra.toString());
+				
+				session.put("email", kor.email);
+				session.put("sifra", kor.sifra);
+				session.put("ime", kor.ime);
+				session.put("uloga", kor.uloga);
+				
+				if(kor.uloga.nazivUloge.toString().equals("Gost")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/gost.html", korr );
+				}
+				
+				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/menadzer.html", korr );
+				}
+				
+				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/konobar.html", korr );
+				}
+				
+				
+				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/sanker.html", korr );
+				}
+
+				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/kuvar.html", korr );
+				}
+
+				if(kor.uloga.nazivUloge.toString().equals("Menadzer sistema")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/menadzerSistema.html", korr );
+				}
+
+				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
+					List<Korisnik> korr= new ArrayList<>();
+					korr.add(kor);
+					renderTemplate("Korisnici/ponudjac.html", korr );
+				}
+
+			}
+		}
+		
+		String mode = "login";
+		renderTemplate("Logovanje/show.html", mode );
+	}
+	
+}

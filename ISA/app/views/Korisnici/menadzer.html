@@ -1,0 +1,79 @@
+#{extends 'standardForm.html' /}
+#{set title:'Strana za menadzere' /}
+
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+p.solid {border-style: solid; color: rgb(0, 153, 204);}
+button { margin: -20px -50px;
+		 position:relative;
+    	 top:50%; 
+    	 left:50%;}
+</style>
+</head>
+
+
+<h2> Ulogovani korisnik je: 
+	#{list items:korr, as:'k'}
+	<tr>
+		<td>${k.ime}</td>
+	</tr>
+	<tr>
+		<a href="http://localhost:9000/Logout/show" id = "korisnici"><button style="margin-left: 6em">Izloguj se</button></a>
+	</tr>
+	#{/list}
+</h2>
+
+</br>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Dodavanje jelovnika
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Raspored sedenja u restoranu
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Evidencija zaposlenih
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Raspored smena
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Raspodela konobara
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Ocena restorana
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Ocena jela
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Registracija radnika restorana
+</div>
+</br>
+
+</html>

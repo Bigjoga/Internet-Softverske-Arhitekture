@@ -1,0 +1,43 @@
+#{extends 'standardForm.html' /}
+#{set title:'Rezervacije'/}
+
+<p>
+<ul>
+  <li><a href="@{Rezervacije.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Rezervacije.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Rezervacije.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Rezervacije</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Datum rezervacije</th> 
+	   <th>Trajanje rezervacije</th>
+	   <th>Korisnik</th> 
+	   <th>Restoran</th>
+	</tr>
+	
+#{list items:rezervacije, as:'rezervacija'}
+	<tr #{if rezervacija.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "datumVreme">${rezervacija.datumVreme}</td>
+		<td class = "trajanje">${rezervacija.trajanje}</td>
+		<td value="${rezervacija.korisnik.id}" class = "korisnik">${rezervacija.korisnik.email}</td>
+		<td value="${rezervacija.restoran.id}" class = "restoran">${rezervacija.restoran.nazivRestorana}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${rezervacija.id}</td>
+	</tr>
+#{/list}
+</table>
+
+</br>
+</div>

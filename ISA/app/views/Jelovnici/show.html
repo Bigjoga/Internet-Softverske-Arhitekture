@@ -1,0 +1,48 @@
+#{extends 'standardForm.html' /}
+#{set title:'Jelovnici'/}
+
+
+	<div align=right>
+      		<a href="http://localhost:9000" id = "Home page">Home page</a>
+	</div>
+
+<p>
+<ul>
+  <li><a href="@{Jelovnici.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+
+
+<div class = "container-fluid">
+<h1>Jelovnici</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Naziv jelovnika</th> 
+	   <th>Restoran</th>
+	</tr>
+	
+#{list items:jelovnici, as:'jelovnik'}
+	<tr #{if jelovnik.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "nazivJelovnika">${jelovnik.nazivJelovnika}</td>
+		<td value="${jelovnik.restoran.id}" class = "restoran">${jelovnik.restoran.nazivRestorana}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${jelovnik.id}</td>
+	</tr>
+#{/list}
+</table>
+
+</div>
+
+
+

@@ -1,0 +1,57 @@
+#{extends 'standardForm.html' /}
+#{set title:'Korisnici'/}
+
+
+	<div align=right>
+      		<a href="http://localhost:9000" id = "Home page">Home page</a>
+	</div>
+
+<p>
+<ul>
+  <li><a href="@{Korisnici.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Korisnici.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Korisnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+
+
+<div class = "container-fluid">
+<h1>Korisnici</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Adresa korisnika</th> 
+	   <th>Broj poseta</th>
+	   <th>Email korisnika</th> 
+	   <th>Ime korisnika</th>
+	   <th>Sifra korisnika</th> 
+	   <th>Restoran</th>
+	   <th>Uloga korisnika</th>
+	</tr>
+#{list items:korisnici, as:'korisnik'}
+	<tr #{if korisnik.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "adresa">${korisnik.adresa}</td>
+		<td class = "brojPoseta">${korisnik.brojPoseta}</td>
+		<td class = "email">${korisnik.email}</td>
+		<td class = "ime">${korisnik.ime}</td>
+		<td class = "sifra">${korisnik.sifra}</td>
+		<td value="${korisnik.restoran.id}" class = "restoran">${korisnik.restoran.nazivRestorana}</td>
+		<td value="${korisnik.uloga.id}" class = "ulogaKorisnika">${korisnik.uloga.nazivUloge}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${korisnik.id}</td>
+	</tr>
+#{/list}
+</table>
+
+</div>
+
+
+
