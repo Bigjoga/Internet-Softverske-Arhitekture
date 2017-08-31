@@ -36,5 +36,15 @@ public class UlogaKorisnika extends Model{
 		this.nazivUloge = nazivUloge;
 		this.korisnici = korisnici;
 	}
+	
+	public UlogaKorisnika(String nazivUloge) {
+		super();
+		this.nazivUloge = nazivUloge;
+		
+	}
 
+	
+	public UlogaKorisnika() {
+		super();
+	}
 }

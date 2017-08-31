@@ -69,8 +69,16 @@ public class Korisnik extends Model {
 		this.rezervacije = rezervacije;
 	}
 	
-	
-
-	
+	public Korisnik(String email, String sifra, String ime, String adresa,
+			Integer brojPoseta, UlogaKorisnika uloga)  {
+		super();
+		this.email = email;
+		this.sifra = sifra;
+		this.ime = ime;
+		this.adresa = adresa;
+		this.brojPoseta = brojPoseta;
+		this.uloga = uloga;
+		
+	}
 	
 }

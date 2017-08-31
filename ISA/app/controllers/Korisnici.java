@@ -17,6 +17,7 @@ public class Korisnici extends Controller{
 		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
 		
 		System.out.println(session.get("email"));
+		System.out.println(korisnici.get(0).uloga.toString());
 		
 		render(restorani,uloge,korisnici,mode,selectedIndex);
 		

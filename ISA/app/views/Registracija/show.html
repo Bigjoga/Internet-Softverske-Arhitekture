@@ -2,12 +2,12 @@
 #{set title:'Registracija' /}
 
 <div class="container-fluid">
-	<h1>Logovanje</h1>
+	<h1>Registracija</h1>
 
 
 	#{set 'action'} 
-	#{if mode == 'login'}
-	@{Logovanje.login()} 
+	#{if mode == 'register'}
+	@{Registracija.registracija()} 
 	#{/if} 
 	#{/set}
 
@@ -18,25 +18,38 @@
 
 			#{field 'korisnik.id'} <input type="hidden" name="${field.name}"
 				id="${field.id}" /> #{/}
-
+			
 			<p>
-				#{field 'korisnik.email'} <label for="${field.id}">Email korisnik
+				#{field 'korisnik.ime'} <label for="${field.id}">Ime korisnika
 					</label> <input type="text" name="${field.name}" id="${field.id}" />
 				#{/}
 			</p>
 			<p>
-				#{field 'korisnik.sifra'} <label for="${field.id}">Sifra korisnik
+				#{field 'korisnik.email'} <label for="${field.id}">Email korisnika
+					</label> <input type="text" name="${field.name}" id="${field.id}" />
+				#{/}
+			</p>
+			<p>
+				#{field 'korisnik.adresa'} <label for="${field.id}">Adresa korisnika
+					</label> <input type="text" name="${field.name}" id="${field.id}" />
+				#{/}
+			</p>
+			<p>
+				#{field 'korisnik.sifra'} <label for="${field.id}">Sifra korisnika
+					</label> <input type="password" name="${field.name}" id="${field.id}" />
+				#{/} 
+			</p>
+			<p>
+				#{field 'korisnik.sifra'} <label for="${field.id}">Potvrdite sifru
 					</label> <input type="password" name="${field.name}" id="${field.id}" />
 				#{/} 
 			</p>
 			
-
+			
+			
 			<div id="formActions">
 				<input type="submit" value="Potvrda" style="margin-left: 6em" />
 			</div>
 			
-		</form>
-			<a href="http://localhost:9000/Korisnici/show" id = "korisnici"><button>Registracija</button></a>
-		</p>
 	</div>
 </div>

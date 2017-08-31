@@ -17,4 +17,9 @@ public class Restorani extends Controller{
 		render(restorani,mode,selectedIndex);
 	}
 	
+	public static void edit(Restoran restoran)
+	{ 
+		restoran.save();
+		show("add", restoran.id);
+	}
 }
