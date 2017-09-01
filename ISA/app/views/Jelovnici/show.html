@@ -33,7 +33,7 @@
 	   <th>Restoran</th>
 	</tr>
 	
-#{list items:jelovnici, as:'jelovnik'}
+#{list items:jelovnicizaprikaz, as:'jelovnik'}
 	<tr #{if jelovnik.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "nazivJelovnika">${jelovnik.nazivJelovnika}</td>
 		<td value="${jelovnik.restoran.id}" class = "restoran">${jelovnik.restoran.nazivRestorana}</td>

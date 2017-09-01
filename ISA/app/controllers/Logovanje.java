@@ -34,6 +34,7 @@ public class Logovanje extends Controller{
 				session.put("sifra", kor.sifra);
 				session.put("ime", kor.ime);
 				session.put("uloga", kor.uloga);
+				session.put("restoran", kor.restoran.nazivRestorana);
 				
 				if(kor.uloga.nazivUloge.toString().equals("Gost")){
 					List<Korisnik> korr= new ArrayList<>();
