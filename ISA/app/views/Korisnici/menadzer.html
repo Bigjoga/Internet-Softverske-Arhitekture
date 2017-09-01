@@ -12,15 +12,19 @@ button { margin: -20px -50px;
     	 left:50%;}
 </style>
 </head>
+</br>
 
+<h1>Menadzer
+	<tr>
+		<a href="http://localhost:9000/Logout/show" id = "korisnici"><button style="margin-left: 6em">Izloguj se</button></a>
+	</tr>
+</h1>
 
+</br>
 <h2> Ulogovani korisnik je: 
 	#{list items:korr, as:'k'}
 	<tr>
 		<td>${k.ime}</td>
-	</tr>
-	<tr>
-		<a href="http://localhost:9000/Logout/show" id = "korisnici"><button style="margin-left: 6em">Izloguj se</button></a>
 	</tr>
 	#{/list}
 </h2>
