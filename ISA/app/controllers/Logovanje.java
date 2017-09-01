@@ -35,12 +35,9 @@ public class Logovanje extends Controller{
 				if(kor.uloga.nazivUloge.toString().equals("Gost")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-<<<<<<< HEAD
 					System.out.println("ULOGOVAN JE KORISNIK SA MEJLOM: " + kor.getEmail().toString());
-=======
 					kor.brojPoseta+=1;
 					kor.save();
->>>>>>> 11c818af0d930bfb122392975b9a501264b363ca
 					renderTemplate("Korisnici/gost.html", korr );
 				}
 				
