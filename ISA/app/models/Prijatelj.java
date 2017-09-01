@@ -25,7 +25,7 @@ public class Prijatelj extends Model {
 	@ManyToOne
 	public Korisnik idKor1;
 	
-	@ManyToOne
+	@ManyToOne()
 	public Korisnik idKor2;
 
 	public Prijatelj(Korisnik idKor1, Korisnik idKor2) {

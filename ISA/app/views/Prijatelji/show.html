@@ -50,7 +50,7 @@ function remove(id)
 	   <th>Id prvog korisnika</th> 
 	   <th>Id drugog korisnika</th> 
 	</tr>
-#{list items:prijatelji, as:'prijatelj'}
+#{list items:listaprijateljazaprikaz, as:'prijatelj'}
 	<tr #{if prijatelj.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "idKor1">${prijatelj.idKor1.ime}</td>
 		<td class = "idKor2">${prijatelj.idKor2.ime}</td>

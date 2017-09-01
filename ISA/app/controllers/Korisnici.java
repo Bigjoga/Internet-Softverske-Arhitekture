@@ -38,5 +38,4 @@ public class Korisnici extends Controller{
 		String mode = "edit";
 		renderTemplate("Korisnici/show.html", korisnici,mode);
 	}
-
 }

@@ -32,7 +32,7 @@
 	<tr #{if rezervacija.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "datumVreme">${rezervacija.datumVreme}</td>
 		<td class = "trajanje">${rezervacija.trajanje}</td>
-		<td value="${rezervacija.korisnik.id}" class = "korisnik">${rezervacija.korisnik.email}</td>
+		<td value="${rezervacija.korisnik.id}" class = "korisnik">${rezervacija.korisnik.ime}</td>
 		<td value="${rezervacija.restoran.id}" class = "restoran">${rezervacija.restoran.nazivRestorana}</td>
 		<td style = "visibility: hidden; max-width: 0px" class = "id">${rezervacija.id}</td>
 	</tr>

@@ -27,7 +27,7 @@ import play.db.jpa.Model;
 
 public class Korisnik extends Model {
 
-	
+	//cao coa gajicu, coa cao     
 	
 	@Column(name = "Email_korisnika", unique = true, nullable = false)
 	public String email;
@@ -79,6 +79,14 @@ public class Korisnik extends Model {
 		this.brojPoseta = brojPoseta;
 		this.uloga = uloga;
 		
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }
