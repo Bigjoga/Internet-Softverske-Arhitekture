@@ -38,18 +38,24 @@ public class Logovanje extends Controller{
 				if(kor.uloga.nazivUloge.toString().equals("Gost")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/gost.html", korr );
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/menadzer.html", korr );
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/konobar.html", korr );
 				}
 				
@@ -57,24 +63,32 @@ public class Logovanje extends Controller{
 				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/sanker.html", korr );
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/kuvar.html", korr );
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer sistema")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/menadzerSistema.html", korr );
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
+					kor.brojPoseta+=1;
+					kor.save();
 					renderTemplate("Korisnici/ponudjac.html", korr );
 				}
 
