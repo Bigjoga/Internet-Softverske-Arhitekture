@@ -11,6 +11,11 @@ public class Prijatelji extends Controller{
 
 	public static void show(String mode, Long selectedIndex)
 	{
+		
+		if(session.isEmpty()){
+			redirect("http://localhost:9000/logovanje/show");
+		}
+		
 		List<Prijatelj> prijatelji = Prijatelj.findAll();
 		List<Prijatelj> listaprijateljazaprikaz= new ArrayList<>();
 		
