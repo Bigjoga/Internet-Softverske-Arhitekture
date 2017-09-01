@@ -1,0 +1,106 @@
+#{extends 'standardForm.html' /}
+#{set title:'Prijatelji'/}
+
+<script>
+function sync(item){
+	idKor1 = item.find(".idKor1").html()
+    idKor2 = item.find(".idKor2").html()
+    id = item.find(".id").html()
+    $("#prijatelj_idKor1").val(idKor1);
+    $("#prijatelj_idKor2").val(idKor2);
+    $("#prijatelj_id").val(id);
+}
+
+function remove(id)
+{
+	var answer = confirm("Are you sure you want to delete?");
+	if(answer)
+		{
+			$(location).attr('href','/Prijatelji/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+	
+}
+</script>
+
+<p>
+<ul>
+  <li><a href="@{Prijatelji.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Prijatelji.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Prijatelji.show("add",null)}" id = "add">Dodaj<img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Prijatelji</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Id prvog korisnika</th> 
+	   <th>Id drugog korisnika</th> 
+	</tr>
+#{list items:prijatelji, as:'prijatelj'}
+	<tr #{if prijatelj.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "idKor1">${prijatelj.idKor1.ime}</td>
+		<td class = "idKor2">${prijatelj.idKor2.ime}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${prijatelj.id}</td>
+	</tr>
+#{/list}
+</table>
+
+<div class = "panel">
+	<p>
+	
+		#{set 'action'}
+		  #{if mode == 'add'}
+		    @{Prijatelji.create()}
+		  #{/if}
+		  #{elseif mode == 'edit'}
+		    @{Prijatelji.edit()}
+		  #{/elseif}
+		  #{else}
+		    @{Prijatelji.filter()}
+		  #{/else}
+		#{/set}
+	
+		<form action=${action} method="post">
+		
+				#{field 'prijatelj.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'prijatelj.idKor1'}
+					<label for = "${field.id}">Prvi korisnik</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span class="error">#{error field.name /}</span>
+				#{/}
+				</p>
+				<p>
+				#{field 'prijatelj.idKor2'}
+					<label for = "${field.id}">Drugi korisnik</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span>#{error field.name /}</span>
+				#{/}
+				</p>
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				 
+		</form>
+	</p>
+</div>
+</div>
+

@@ -12,18 +12,53 @@ button { margin: -20px -50px;
     	 left:50%;}
 </style>
 </head>
+</br>
+
+<h1>Gost
+	<tr>
+		<a href="http://localhost:9000/Logout/show" id = "korisnici"><button style="margin-left: 6em">Izloguj se</button></a>
+	</tr>
+</h1>
 
 </br>
-<h2> Ulogovani korisnik je: 
+<h2> Ime i prezime: 
 	#{list items:korr, as:'k'}
 	<tr>
 		<td>${k.ime}</td>
 	</tr>
+	#{/list}
+</h2>
+
+</br>
+<h2> Adresa:
+	#{list items:korr, as:'k'}
 	<tr>
-		<a href="http://localhost:9000/Logout/show" id = "korisnici"><button style="margin-left: 6em">Izloguj se</button></a>
+		<td>${k.adresa}</td>
 	</tr>
 	#{/list}
 </h2>
+
+</br>
+<h2> Broj poseta:
+	#{list items:korr, as:'k'}
+	<tr>
+		<td>${k.brojPoseta}</td>
+	</tr>
+	#{/list}
+</h2>
+
+</br>
+<h2> Izmena podataka:
+	<tr>
+		<a href="http://localhost:9000/Korisnici/show" id = "korisnici"><button style="margin-left: -25em">Izmeni podatke</button></a>
+	</tr>
+	<tr>
+		<a href="http://localhost:9000/Prijatelji/nextMehanizam?id=12" id = "korisnici"><button style="margin-left: 2em">Izmeni prijatelje</button></a>
+	</tr>
+</h2>
+
+
+
 
 
 
@@ -39,7 +74,7 @@ button { margin: -20px -50px;
 
 </br>
 <div align=center>
-      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Pozovite prijatelja
+      <a href="http://localhost:9000/Prijatelji/nextMehanizam?id=12" id = "korisnici">Pozovite prijatelja
 </div>
 </br>
 
@@ -60,7 +95,6 @@ button { margin: -20px -50px;
       <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Otkazite rezervaciju
 </div>
 </br>
-
 
 </html>
 

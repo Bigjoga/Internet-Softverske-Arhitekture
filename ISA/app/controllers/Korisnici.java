@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import com.sun.prism.RenderTarget;
+
 import models.Korisnik;
 import models.Restoran;
 import models.UlogaKorisnika;
@@ -19,8 +21,22 @@ public class Korisnici extends Controller{
 		System.out.println(session.get("email"));
 		System.out.println(korisnici.get(0).uloga.toString());
 		
-		render(restorani,uloge,korisnici,mode,selectedIndex);
-		
-		
+		render(restorani,uloge,korisnici,mode,selectedIndex);	
 	}
+	
+	public static void edit(Korisnik korisnik, Long restoran)
+	{
+		Restoran rest = Restoran.findById(restoran);
+		korisnik.restoran = rest;
+		korisnik.save();
+		show("edit",korisnik.id);
+	}
+	
+	public static void filter(Korisnik korisnik)
+	{
+		List<Korisnik> korisnici = Korisnik.find("byImeLikeAndEmailLike", "%"+korisnik.ime+"%", "%"+korisnik.email+"%").fetch();                      
+		String mode = "edit";
+		renderTemplate("Korisnici/show.html", korisnici,mode);
+	}
+
 }

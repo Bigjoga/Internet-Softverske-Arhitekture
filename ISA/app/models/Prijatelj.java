@@ -20,17 +20,15 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="Prijatelji")
 
-public class Prijatelji extends Model {
+public class Prijatelj extends Model {
 
-	
-	
 	@ManyToOne
 	public Korisnik idKor1;
 	
 	@ManyToOne
 	public Korisnik idKor2;
 
-	public Prijatelji(Korisnik idKor1, Korisnik idKor2) {
+	public Prijatelj(Korisnik idKor1, Korisnik idKor2) {
 		super();
 		this.idKor1 = idKor1;
 		this.idKor2 = idKor2;
