@@ -25,5 +25,7 @@ public class Jelovnici extends Controller{
 			mode = "edit";
 		render(jelovnicizaprikaz,mode,selectedIndex);
 	}
+	
+	
 
 }
