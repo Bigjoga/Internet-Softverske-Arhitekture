@@ -16,27 +16,32 @@ public class Prijatelji extends Controller{
 			redirect("http://localhost:9000/logovanje/show");
 		}
 		
+		//---------
+		List<Korisnik> korisnici = Korisnik.findAll();
+		//---------
 		List<Prijatelj> prijatelji = Prijatelj.findAll();
 		List<Prijatelj> listaprijateljazaprikaz= new ArrayList<>();
-		
+		 		
 		for(int i=0; i<prijatelji.size();i++){
 			if(prijatelji.get(i).idKor1.email.equals(session.get("email"))){
-				System.out.println("isti su kao sa sesijom");
-				listaprijateljazaprikaz.add(prijatelji.get(i));
-			}
-		}
-		
-		for(int i=0; i<listaprijateljazaprikaz.size();i++){
-			System.out.println(listaprijateljazaprikaz.get(i).idKor1.ime.toString());
-		}
+		 			System.out.println("isti su kao sa sesijom");
+		 			listaprijateljazaprikaz.add(prijatelji.get(i));
+		 	}
+		 }
+		 		
+		 for(int i=0; i<listaprijateljazaprikaz.size();i++){
+		 	System.out.println(listaprijateljazaprikaz.get(i).idKor1.ime.toString());
+		 }
 
 		if(mode == null || mode.equals(""))
 			mode = "edit";
-		render(listaprijateljazaprikaz,mode,selectedIndex);
+		render(korisnici,listaprijateljazaprikaz,mode,selectedIndex);
 	}
 
-	public static void create(Prijatelj prijatelj)
+	public static void create(Prijatelj prijatelj, Long korisnici)
 	{
+		Korisnik kor = Korisnik.findById(korisnici);
+		prijatelj.idKor1 = kor;
 		prijatelj.save();
 		show("add", prijatelj.id);
 	}

@@ -25,9 +25,7 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "Korisnik")
 
-public class Korisnik extends Model {
-
-	//cao coa gajicu, coa cao     
+public class Korisnik extends Model {  
 	
 	@Column(name = "Email_korisnika", unique = true, nullable = false)
 	public String email;

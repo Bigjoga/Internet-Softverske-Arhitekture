@@ -90,7 +90,7 @@ function nextform(id)
 	   <th>Restoran</th>
 	   <th>Uloga korisnika</th>
 	</tr>
-#{list items:korisnici, as:'korisnik'}
+#{list items:listaKorisnikaZaPrikaz, as:'korisnik'}
 	<tr #{if korisnik.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "adresa">${korisnik.adresa}</td>
 		<td class = "brojPoseta">${korisnik.brojPoseta}</td>
