@@ -12,9 +12,22 @@ public class Prijatelji extends Controller{
 	public static void show(String mode, Long selectedIndex)
 	{
 		List<Prijatelj> prijatelji = Prijatelj.findAll();
+		List<Prijatelj> listaprijateljazaprikaz= new ArrayList<>();
+		
+		for(int i=0; i<prijatelji.size();i++){
+			if(prijatelji.get(i).idKor1.email.equals(session.get("email"))){
+				System.out.println("isti su kao sa sesijom");
+				listaprijateljazaprikaz.add(prijatelji.get(i));
+			}
+		}
+		
+		for(int i=0; i<listaprijateljazaprikaz.size();i++){
+			System.out.println(listaprijateljazaprikaz.get(i).idKor1.ime.toString());
+		}
+
 		if(mode == null || mode.equals(""))
 			mode = "edit";
-		render(prijatelji,mode,selectedIndex);
+		render(listaprijateljazaprikaz,mode,selectedIndex);
 	}
 
 	public static void create(Prijatelj prijatelj)
