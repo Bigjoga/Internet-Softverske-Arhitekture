@@ -51,9 +51,13 @@ public class Rezervacija extends Model {
 		this.pozvaniPrijateljiInfo = pozvaniPrijateljiInfo;
 	}
 
-	
-
-	
-	
+	public Rezervacija(Date datumVreme, Integer trajanje, Korisnik korisnik,
+			Restoran restoran) {
+		super();
+		this.datumVreme = datumVreme;
+		this.trajanje = trajanje;
+		this.korisnik = korisnik;
+		this.restoran = restoran;
+	}
 	
 }
