@@ -30,7 +30,7 @@ function sync(item){
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{StavkeJelovnika.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-   <li><a href="@{StavkeJelovnika.show("izborJelovnika",null)}" id = "nextform">Naruci<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{StavkeJelovnika.show("naruci",null)}" id = "nextform">Naruci<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -45,7 +45,7 @@ function sync(item){
 	   <th>Jelovnik</th>
 	</tr>
 	
-#{list items:stavkeJelovnika, as:'stavkaJelovnika'}
+#{list items:stavkeZaPrikaz, as:'stavkaJelovnika'}
 	<tr #{if stavkaJelovnika.id == selectedIndex} class = "highlighted" #{/if}>
 		<td value="${stavkaJelovnika.jelo.id}" class = "jelo">${stavkaJelovnika.jelo.nazivJela}</td>
 		<td class = "cena">${stavkaJelovnika.cena}</td>
@@ -55,11 +55,14 @@ function sync(item){
 #{/list}
 </table>
 
-#{set 'action'}
+#{set 'action'}	
 		  #{if mode == 'izborJelovnika'}
 		    @{StavkeJelovnika.show()}
 		  #{/if}
-		#{/set}
+		  #{elseif mode == 'naruci'}
+		    @{StavkeJelovnika.naruci()}
+		  #{/elseif}	  
+#{/set}
 
 </br>
 
@@ -68,7 +71,7 @@ function sync(item){
 	
 		<form action = "${action}">
 		
-				#{field 'jstavkaJelovnika.id'}
+				#{field 'stavkaJelovnika.id'}
 					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				

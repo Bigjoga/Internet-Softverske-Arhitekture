@@ -47,10 +47,15 @@ public class Restoran extends Model {
 	@Column(name = "Adresa_restorana", unique = false, nullable = false)
 	public String adresa;
 	
+	
+	
 	/*@OneToMany(cascade = { ALL }, fetch = EAGER, mappedBy = "restoran")
 	private Set<Korisnik> menadzeri = new HashSet<Korisnik>();*/
 	@OneToMany(mappedBy = "restoran")
 	public List<Korisnik> menadzeri ;
+	
+	@OneToMany(mappedBy = "restoran")
+	public List<Porudzbina> porudzbina;
 
 	public Restoran(String nazivRestorana, String opisRestorana, Integer dimX,
 			Integer dimY, Double prosecnaOcena, Integer ukupanBrojOcena,
@@ -64,6 +69,10 @@ public class Restoran extends Model {
 		this.ukupanBrojOcena = ukupanBrojOcena;
 		this.adresa = adresa;
 		this.menadzeri = menadzeri;
+	}
+
+	public Restoran() {
+		super();
 	}
 	
 	

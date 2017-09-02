@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,10 +20,6 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="Jelo")
 public  class Jelo extends Model{
-
-	
-	
-	
 
 	public Jelo(String nazivJela, String opisJela,
 			List<StavkaJelovnika> stavkeJelovnika) {
@@ -41,8 +38,6 @@ public  class Jelo extends Model{
 	@OneToMany(mappedBy = "jelo")
 	public List<StavkaJelovnika> stavkeJelovnika ;
 
-	
-	
 	
 	
 }
