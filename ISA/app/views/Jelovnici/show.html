@@ -43,11 +43,6 @@ function sync(item){
     $("#jelovnik_id").val(id);
 }
 
-function nextform(id)
-{
-	$(location).attr('href','/Prijatelji/nextMehanizam?id='+id);
-}
-
 </script>
 
 
@@ -67,7 +62,8 @@ function nextform(id)
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Jelovnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="#" id = "nextform">Porucite jelo<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
 

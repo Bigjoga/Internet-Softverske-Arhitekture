@@ -46,6 +46,7 @@ public class Prijatelji extends Controller{
 		show("add", prijatelj.id);
 	}
 	
+	/*
 	public static void nextMehanizam(Long id)
 	{
 		Korisnik kor = Korisnik.findById(id);
@@ -71,6 +72,7 @@ public class Prijatelji extends Controller{
 		Long idZaPrikaz = id;
 		renderTemplate("Prijatelji/show.html",korisnici,prijatelji,mode,0,idZaPrikaz);
 	}
+	*/
 	
 	public static void edit(Prijatelj prijatelj)
 	{
