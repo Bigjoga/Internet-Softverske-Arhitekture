@@ -54,4 +54,20 @@ public class Restorani extends Controller{
 	    rezervacija.save();
 	    show("rezervacija", null);
 	}
+	
+	public static void filter(Restoran restoran)
+	{
+		List<Restoran> restorani = Restoran.find("byNazivRestoranaLikeAndOpisRestoranaLike", "%"+restoran.nazivRestorana+"%", "%"+restoran.opisRestorana+"%").fetch();
+		String mode = "edit";
+		renderTemplate("Restorani/show.html", restorani, mode);
+	}
 }
+
+
+
+
+
+
+
+
+

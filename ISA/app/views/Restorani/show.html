@@ -80,6 +80,9 @@ function sync(item){
 		  #{elseif mode == 'rezervacija'}
 		    @{Restorani.rezervacija()}
 		  #{/elseif}
+		  #{else}
+		    @{Restorani.filter()}
+		  #{/else}
 		#{/set}
 
 </br>

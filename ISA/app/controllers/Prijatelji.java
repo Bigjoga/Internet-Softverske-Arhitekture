@@ -40,8 +40,12 @@ public class Prijatelji extends Controller{
 
 	public static void create(Prijatelj prijatelj, Long korisnici)
 	{
-		Korisnik kor = Korisnik.findById(korisnici);
-		prijatelj.idKor1 = kor;
+		Korisnik kor1 = Korisnik.findById(korisnici);
+		prijatelj.idKor1 = kor1;
+		
+		//Korisnik kor2 = Korisnik.findById(korisnici);
+		//prijatelj.idKor2 = kor2;
+		
 		prijatelj.save();
 		show("add", prijatelj.id);
 	}
