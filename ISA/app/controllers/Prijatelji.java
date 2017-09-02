@@ -16,6 +16,8 @@ public class Prijatelji extends Controller{
 			redirect("http://localhost:9000/logovanje/show");
 		}
 		
+		System.out.println(session.get("email"));
+		
 		//---------
 		List<Korisnik> korisnici = Korisnik.findAll();
 		//---------
