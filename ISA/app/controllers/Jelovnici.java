@@ -26,9 +26,6 @@ public class Jelovnici extends Controller{
 		render(jelovnicizaprikaz,mode,selectedIndex);
 	}
 	
-	public static void narucite(Jelovnik jelovnik)
 	{
-		//mora da se napravi novi model i da se restraruje baze
-	}
 
 }
