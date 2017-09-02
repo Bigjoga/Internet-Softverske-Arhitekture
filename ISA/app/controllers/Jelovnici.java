@@ -26,6 +26,10 @@ public class Jelovnici extends Controller{
 		render(jelovnicizaprikaz,mode,selectedIndex);
 	}
 	
-	{
-
+	public static void izborJelovnika(Restoran restoran)
+	{ 
+		session.put("restoran", restoran.nazivRestorana);
+		redirect("http://localhost:9000/StavkeJelovnika/show");
+	}
 }
+

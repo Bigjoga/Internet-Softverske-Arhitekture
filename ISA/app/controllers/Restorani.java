@@ -27,8 +27,15 @@ public class Restorani extends Controller{
 		render(restorani,mode,selectedIndex);
 	}
 	
+	public static void izborRestorana(Restoran restoran)
+	{ 
+		session.put("restoran", restoran.nazivRestorana);
+		redirect("http://localhost:9000/Jelovnici/show");
+	}
+	
 	public static void edit(Restoran restoran)
 	{ 
+		restoran.ukupanBrojOcena+=1;
 		restoran.save();
 		show("add", restoran.id);
 	}

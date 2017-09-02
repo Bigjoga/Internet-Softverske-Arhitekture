@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.Korisnik;
 import models.Prijatelj;
+import models.UlogaKorisnika;
 import play.mvc.Controller;
 
 public class Prijatelji extends Controller{
@@ -40,17 +41,23 @@ public class Prijatelji extends Controller{
 		render(korisnici,listaprijateljazaprikaz,mode,selectedIndex);
 	}
 
-	public static void create(Prijatelj prijatelj, Long korisnici)
+	
+	public static void create(Prijatelj prijateljjjj, Long korisnici)
 	{
-		Korisnik kor1 = Korisnik.findById(korisnici);
-		prijatelj.idKor1 = kor1;
+		List<Korisnik> kor= Korisnik.findAll();
+		List<Korisnik> ulogovaniKorisnik= new ArrayList<>();
+		for(int i=0; i< kor.size();i++){
+			if(kor.get(i).email.equals(session.get("email"))){
+				ulogovaniKorisnik.add(kor.get(i));
+			}
+		}
 		
-		//Korisnik kor2 = Korisnik.findById(korisnici);
-		//prijatelj.idKor2 = kor2;
-		
-		prijatelj.save();
-		show("add", prijatelj.id);
+		Korisnik prijatelj2= Korisnik.findById(korisnici);
+		Prijatelj prija= new Prijatelj(ulogovaniKorisnik.get(0), prijatelj2);
+		prija.save();
+		show("add", prijateljjjj.id);
 	}
+	
 	
 	/*
 	public static void nextMehanizam(Long id)

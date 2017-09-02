@@ -53,6 +53,7 @@ public class Registracija extends Controller{
 					0,
 					ulo);
 			
+			
 			kor.save();
 			redirect("http://localhost:9000/logovanje/show");
 		}

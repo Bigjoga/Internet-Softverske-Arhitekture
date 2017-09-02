@@ -1,0 +1,132 @@
+#{extends 'standardForm.html' /}
+#{set title:'Stavke jelovnika'/}
+
+<script>
+
+function sync(item){
+	
+    jelo = item.find(".jelo").html()
+    cena = item.find(".cena").html()
+	jelovnik = item.find(".jelovnik").html()
+    id = item.find(".id").html()
+
+    $("#jelo").val(jelo); 
+    $("#stavkaJelovnika_cena").val(cena);
+    $("#jelovnik").val(jelovnik);
+    $("#stavkaJelovnika_id").val(id);
+}
+
+</script>
+
+<p>
+<ul>
+  <li><a href="@{StavkeJelovnika.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{StavkeJelovnika.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{StavkeJelovnika.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+   <li><a href="@{StavkeJelovnika.show("izborJelovnika",null)}" id = "nextform">Naruci<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Stavke jelovnika</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Jelo</th>
+	   <th>Cena stavke</th> 
+	   <th>Jelovnik</th>
+	</tr>
+	
+#{list items:stavkeJelovnika, as:'stavkaJelovnika'}
+	<tr #{if stavkaJelovnika.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${stavkaJelovnika.jelo.id}" class = "jelo">${stavkaJelovnika.jelo.nazivJela}</td>
+		<td class = "cena">${stavkaJelovnika.cena}</td>
+		<td value="${stavkaJelovnika.jelovnik.id}" class = "jelovnik">${stavkaJelovnika.jelovnik.nazivJelovnika}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${stavkaJelovnika.id}</td>
+	</tr>
+#{/list}
+</table>
+
+#{set 'action'}
+		  #{if mode == 'izborJelovnika'}
+		    @{StavkeJelovnika.show()}
+		  #{/if}
+		#{/set}
+
+</br>
+
+<div class = "panel">
+	<p>
+	
+		<form action = "${action}">
+		
+				#{field 'jstavkaJelovnika.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'jelo'}
+					<label for = "${field.id}">Jelo</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				#{field 'stavkaJelovnika.cena'}
+					<label for = "${field.id}">Naziv jelovnika</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				#{field 'jelovnik'}
+					<label for = "${field.id}">Jelovnik</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				
+		</form>
+	</p>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

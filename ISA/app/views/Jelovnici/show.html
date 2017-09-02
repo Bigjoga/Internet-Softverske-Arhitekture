@@ -45,11 +45,6 @@ function sync(item){
 
 </script>
 
-
-	<div align=right>
-      		<a href="http://localhost:9000" id = "Home page">Home page</a>
-	</div>
-
 <p>
 <ul>
   <li><a href="@{Jelovnici.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
@@ -62,7 +57,7 @@ function sync(item){
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Jelovnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="#" id = "nextform">Porucite jelo<img src="@{'/public/images/nextform.gif'}"/></a></li>
+   <li><a href="@{Jelovnici.show("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -86,6 +81,12 @@ function sync(item){
 	</tr>
 #{/list}
 </table>
+
+#{set 'action'}
+		  #{if mode == 'izborJelovnika'}
+		    @{Jelovnici.izborJelovnika()}
+		  #{/if}
+		#{/set}
 
 	<div class = "panel">
 	<p>

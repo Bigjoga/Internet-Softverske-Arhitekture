@@ -23,14 +23,6 @@ public class OcenaRestorana extends Controller{
 	
 	public static void edit(Restoran restoran)
 	{ 
-		List<Restoran> res = Restoran.findAll();
-		for(Restoran r : res)
-		{
-			if(r.nazivRestorana.toString().equals(restoran.nazivRestorana))
-			{
-				r.ukupanBrojOcena+=1;
-			}
-		}
 		restoran.save();
 		show("add", restoran.id);
 	}

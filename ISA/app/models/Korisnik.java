@@ -76,9 +76,24 @@ public class Korisnik extends Model {
 		this.adresa = adresa;
 		this.brojPoseta = brojPoseta;
 		this.uloga = uloga;
-		
+	}
+	
+	//-----------------DODATO
+
+	public Korisnik(String email, String sifra, String ime, String adresa,
+			Integer brojPoseta, UlogaKorisnika uloga, Restoran restoran) {
+		super();
+		this.email = email;
+		this.sifra = sifra;
+		this.ime = ime;
+		this.adresa = adresa;
+		this.brojPoseta = brojPoseta;
+		this.uloga = uloga;
+		this.restoran = restoran;
 	}
 
+	//-----------------------
+	
 	public String getEmail() {
 		return email;
 	}
