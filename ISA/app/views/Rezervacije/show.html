@@ -1,6 +1,24 @@
 #{extends 'standardForm.html' /}
 #{set title:'Rezervacije'/}
 
+<script>
+
+function remove(id)
+{
+	var answer = confirm("Da li ste sigurni da zelite da otkazete rezervaciju?");
+	if(answer)
+		{
+			$(location).attr('href','/Rezervacije/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+	
+}
+
+</script>
+
 <p>
 <ul>
   <li><a href="@{Rezervacije.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
@@ -12,7 +30,7 @@
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Rezervacije.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="#" id = "remove">Otkazite rezervaciju<img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -28,7 +46,7 @@
 	   <th>Restoran</th>
 	</tr>
 	
-#{list items:rezervacije, as:'rezervacija'}
+#{list items:listaRezervacijaZaPrikaz, as:'rezervacija'}
 	<tr #{if rezervacija.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "datumVreme">${rezervacija.datumVreme}</td>
 		<td class = "trajanje">${rezervacija.trajanje}</td>
