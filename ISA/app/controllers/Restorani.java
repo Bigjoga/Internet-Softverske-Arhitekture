@@ -30,7 +30,7 @@ public class Restorani extends Controller{
 	public static void izborRestorana(Restoran restoran)
 	{ 
 		session.put("restoran", restoran.nazivRestorana);
-		redirect("http://localhost:9000/Jelovnici/show");
+		redirect("http://localhost:9000/Jelovnici/showGosti");
 	}
 	
 	public static void edit(Restoran restoran)

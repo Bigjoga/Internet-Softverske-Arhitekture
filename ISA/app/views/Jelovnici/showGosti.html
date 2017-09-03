@@ -63,10 +63,6 @@ function remove(id)
 		}
 }
 
-function nextform(id)
-{
-	$(location).attr('href','/Bank1/nextMehanizam?id='+id);
-}
 
 </script>
 	<div align=right>
@@ -85,7 +81,8 @@ function nextform(id)
   <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Jelovnici.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
 
@@ -108,17 +105,11 @@ function nextform(id)
 
 
 #{set 'action'}
-    #{if mode == 'add'}
-        @{Jelovnici.create()}
+    #{if mode == 'izborJelovnika'}
+ 	    @{Jelovnici.izborJelovnika()}
     #{/if}
-    #{elseif mode == 'edit'}
-        @{Jelovnici.edit()}
-    #{/elseif}
-    #{elseif mode == 'izborJelovnika'}
-        @{Jelovnici.izborJelovnika()}
-    #{/elseif}
-  #{/set}
- 
+#{/set}
+  
 
   
 <div class = "panel">
