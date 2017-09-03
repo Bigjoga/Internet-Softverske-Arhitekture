@@ -56,6 +56,9 @@ public class StavkeJelovnika extends Controller{
 		porudzbina.save();
 		redirect("http://localhost:9000/Jelovnici/showGosti");
 	}
+	
+	//KOMENTAR
+	
 }
 
 
