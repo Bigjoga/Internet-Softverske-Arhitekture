@@ -39,9 +39,9 @@ public class Porudzbine extends Controller{
 		
 	}
 	
-	public static void prihvati(Restoran restoran , Long stavkaJelovnika)
+	public static void prihvati(Long restoran , Long stavkaJelovnika)
 	{	
-		System.out.println(restoran.nazivRestorana);
+		System.out.println(restoran);
 	}
 
 }

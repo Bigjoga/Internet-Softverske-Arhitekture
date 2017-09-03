@@ -91,14 +91,10 @@ function sync(item){
 </br>
 <form action = "${action}">
 		
-				#{field 'restoran.id'}
+				#{field 'porudzbina.id'}
 					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
 				#{/}
-				
-				#{field 'stavkaJelovnika.id'}
-					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
-				#{/}
-				
+
 				<p>
 				#{field 'restoran'}
 					<label for = "${field.id}">Restoran</label>
