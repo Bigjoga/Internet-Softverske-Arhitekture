@@ -1,7 +1,12 @@
 #{extends 'standardForm.html' /}
-#{set title:'Jelovnici'/}
+#{set title:'Jelovnici' /}
+
+#{set 'prikazani'}
+	idZaPrikaz
+	#{/set}
 
 <script>
+
 
 function GetURLParameter(sParam)
 	{
@@ -16,7 +21,10 @@ function GetURLParameter(sParam)
 	        }
 	    }
 	}
-	
+
+
+
+
 $(document).ready(function(){
 	var zaPrikazivanjeStoTreba = 0;
 	//alert(GetURLParameter('id'));
@@ -27,23 +35,43 @@ $(document).ready(function(){
 		$("select").val(id);
 		$('#drzaveModal').modal('toggle');
 	});
-});	
-
+});
 
 function sync(item){
 	
-    naziv = item.find(".nazivJelovnika").html()
-	restoran = item.find(".restoran").html()
+    naziv = item.find(".jelo_naziv").html()
+	restoran = item.find(".restoran").attr("value");
     id = item.find(".id").html()
     
     
-    
-    $("#jelovnik_ime").val(naziv);
+    $("#jelovnik_nazivJelovnika").val(naziv);
     $("#restoran").val(restoran);
     $("#jelovnik_id").val(id);
+    
+}
+
+function remove(id)
+{
+	var answer = confirm("Are you sure you want to delete?");
+	if(answer)
+		{
+			$(location).attr('href','/Jelovnici/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+}
+
+function nextform(id)
+{
+	$(location).attr('href','/Bank1/nextMehanizam?id='+id);
 }
 
 </script>
+	<div align=right>
+      		<a href="http://localhost:9000" id = "Home page">Home page</a>
+	</div>
 
 <p>
 <ul>
@@ -51,18 +79,15 @@ function sync(item){
   <li><a href="@{Jelovnici.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
-  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
-  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
-  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
-  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Jelovnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a  id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a  id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a  id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-   <li><a href="@{Jelovnici.show("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
-  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
-
-
 
 <div class = "container-fluid">
 <h1>Jelovnici</h1>
@@ -72,23 +97,34 @@ function sync(item){
 	   <th>Naziv jelovnika</th> 
 	   <th>Restoran</th>
 	</tr>
-	
-#{list items:jelovnicizaprikaz, as:'jelovnik'}
-	<tr #{if jelovnik.id == selectedIndex} class = "highlighted" #{/if}>
-		<td class = "nazivJelovnika">${jelovnik.nazivJelovnika}</td>
-		<td value="${jelovnik.restoran.id}" class = "restoran">${jelovnik.restoran.nazivRestorana}</td>
-		<td style = "visibility: hidden; max-width: 0px" class = "id">${jelovnik.id}</td>
+#{list items:jelovnicizaprikaz, as:'jelo'}
+	<tr #{if jelo.id == selectedIndex} class = "highlighted trww" #{/if} class="trww">
+		<td class = "jelo_naziv">${jelo.nazivJelovnika}</td>
+		<td value="${jelo.restoran.id}" class = "restoran">${jelo.restoran.nazivRestorana}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${jelo.id}</td>
 	</tr>
 #{/list}
 </table>
 
-#{set 'action'}
-		  #{if mode == 'izborJelovnika'}
-		    @{Jelovnici.izborJelovnika()}
-		  #{/if}
-		#{/set}
 
-	<div class = "panel">
+#{set 'action'}
+    #{if mode == 'add'}
+        @{Jelovnici.create()}
+    #{/if}
+    #{elseif mode == 'edit'}
+        @{Jelovnici.edit()}
+    #{/elseif}
+    
+  #{/set}
+  
+
+					#{ifErrors}
+					   <h4>Greska pri unosu</h4>
+					   <br>
+					#{/ifErrors}
+
+  
+<div class = "panel">
 	<p>
 	
 		<form action = "${action}">
@@ -98,19 +134,32 @@ function sync(item){
 				#{/}
 				
 				<p>
-				#{field 'jelovnik.ime'}
+				#{field 'jelovnik.nazivJelovnika'}
 					<label for = "${field.id}">Naziv jelovnika</label>
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
+				
 				<p>
 				#{field 'restoran'}
 					<label for = "${field.id}">Restoran</label>
-					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+					<select name = "${field.name}" id = "${field.id}" />
+<!-- 				ovako je izgledao gornji red ali tada nije radio!?!
+					<select style="margin-left: 50px; name = "${field.name}" id = "${field.id}"/> -->
+					#{list items:restoran, as:'res'}
+					<option value = "${res.id}">${res.nazivRestorana}</option>
+					#{/list}
+					</select>
+					
+					 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#drzaveModal">...	</button>
+					 
+					 <script>
+					 	//alert(zaPrikazivanjeStoTreba);
+					 	//document.getElementById('${field.id}').selectedIndex=zaPrikazivanjeStoTreba;
+					 	document.getElementById('${field.id}').selectedIndex=GetURLParameter('id')-1;
+					 </script>
 				#{/}
 				</p>
-				<p>
-				
 				<div id = "formActions">
 					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
 					<a href = "#" style="margin-left:1em">Rollback</a>
@@ -120,7 +169,33 @@ function sync(item){
 	</p>
 </div>
 
+ <!-- Modal -->
+  <div class="modal fade" id="drzaveModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+      <div class="modal-header">
+      	Drzave koje se nalaze u sistemu:
+      </div>
+      <div class="modal-body">
+	    <table style = "padding:2em">
+		<tr class = "header">
+		   <th>Oznaka</th> 
+		   <th>Naziv</th>
+		</tr>
+		#{list items:drzave, as:'drzava'}
+		<tr>
+			<td class = "oznaka">${drzava.oznaka}</td>
+			<td class = "naziv">${drzava.naziv}</td>
+			<td style = "visibility: hidden; max-width: 0px" class = "dr_id">${drzava.id}</td>
+		</tr>
+		#{/list}
+		</table>
+		<div class="modal-footer">
+			<input id = "drzavaPickup" type = "button" value = "izbor"/>
+		</div>
+		</div>
+      </div>
+    </div>
+   </div>
 </div>
-
-
-
