@@ -36,7 +36,7 @@ public class Jelovnici extends Controller{
 	public static void showGosti(String mode, Long selectedIndex)
 	{
 		List<Jelovnik> jelovnici = Jelovnik.findAll();
-		List<Jelovnik>  jelovnicizaprikaz= new ArrayList<>();
+		List<Jelovnik>  jelovnicizaprikazz= new ArrayList<>();
 		List<Restoran> restorano= Restoran.findAll();
 	    Restoran restoran = new Restoran();
 		for(int  i =0; i<restorano.size();i++){
@@ -47,7 +47,7 @@ public class Jelovnici extends Controller{
 		
 		for(int i=0; i<jelovnici.size();i++){
 			if(jelovnici.get(i).restoran.nazivRestorana.equals(session.get("restoran").toString())){
-				jelovnicizaprikaz.add(jelovnici.get(i));
+				jelovnicizaprikazz.add(jelovnici.get(i));
 			}
 		}
 		
@@ -55,7 +55,7 @@ public class Jelovnici extends Controller{
 			mode = "edit";
 		
 		
-		render(jelovnicizaprikaz,restoran,mode,selectedIndex);
+		render(jelovnicizaprikazz,restoran,mode,selectedIndex);
 	}
 	
 	public static void izborJelovnika(Jelovnik jelovnik)

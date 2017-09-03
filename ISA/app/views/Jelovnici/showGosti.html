@@ -63,32 +63,33 @@ function remove(id)
 		}
 }
 
+
+</script>
+
 <p>
 <ul>
-  <li><a href="@{Jelovnici.showGosti("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Jelovnici.showGosti("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a  id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a  id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a  id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Jelovnici.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="@{Jelovnici.showGosti("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{Jelovnici.show("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
 
 <div class = "container-fluid">
-<h1>Jelovnici</h1>
+<h1>Jelovnici gosti</h1>
 
 <table class="TabelaForme">
 	<tr class = "header">
 	   <th>Naziv jelovnika</th> 
 	   <th>Restoran</th>
 	</tr>
-#{list items:jelovnicizaprikaz, as:'jelo'}
+#{list items:jelovnicizaprikazz, as:'jelo'}
 	<tr #{if jelo.id == selectedIndex} class = "highlighted trww" #{/if} class="trww">
 		<td class = "jelo_naziv">${jelo.nazivJelovnika}</td>
 		<td value="${jelo.restoran.id}" class = "restoran">${jelo.restoran.nazivRestorana}</td>
@@ -99,11 +100,17 @@ function remove(id)
 
 
 #{set 'action'}
-    #{if mode == 'izborJelovnika'}
- 	    @{Jelovnici.izborJelovnika()}
+    #{if mode == 'add'}
+        @{Jelovnici.create()}
     #{/if}
-#{/set}
-  
+    #{elseif mode == 'edit'}
+        @{Jelovnici.edit()}
+    #{/elseif}
+    #{elseif mode == 'izborJelovnika'}
+        @{Jelovnici.izborJelovnika()}
+    #{/elseif}
+  #{/set}
+ 
 
   
 <div class = "panel">

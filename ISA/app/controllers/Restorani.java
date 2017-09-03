@@ -29,15 +29,21 @@ public class Restorani extends Controller{
 	
 	public static void izborRestorana(Restoran restoran)
 	{ 		
-		if(session.get("uloga").equals("Gost"))
+		session.put("restoran", restoran.nazivRestorana);
+		System.out.println("RESTORAN KOJI SE NALAZI U SESSIJI JE ----------> " + session.get("restoran"));
+		System.out.println("ULOGA ZA IZBOR RESTORANA JE ----------> " + session.get("uloga"));
+		
+		List<Korisnik> k = Korisnik.findAll();
+		for(Korisnik kor : k)
 		{
-			session.put("restoran", restoran.nazivRestorana);
-			redirect("http://localhost:9000/Jelovnici/showGosti");
-		}
-		else if(session.get("uloga").equals("Menadzer"))
-		{
-			session.put("restoran", restoran.nazivRestorana);
-			redirect("http://localhost:9000/Jelovnici/show");
+			if(kor.uloga.nazivUloge.toString().equals("Gost"))
+			{
+				redirect("http://localhost:9000/Jelovnici/showGosti");
+			}
+			else if(kor.uloga.nazivUloge.toString().equals("Menadzer"))
+			{		
+				redirect("http://localhost:9000/Jelovnici/show");
+			}
 		}
 	}
 	
