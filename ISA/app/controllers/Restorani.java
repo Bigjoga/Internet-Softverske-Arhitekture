@@ -36,7 +36,7 @@ public class Restorani extends Controller{
 		List<Korisnik> k = Korisnik.findAll();
 		for(Korisnik kor : k)
 		{
-			if(kor.uloga.nazivUloge.toString().equals(session.get("uloga")))
+			if(kor.uloga.nazivUloge.toString().equals("Gost"))
 			{
 				System.out.println("gost sam");
 				redirect("http://localhost:9000/Jelovnici/showGosti");
