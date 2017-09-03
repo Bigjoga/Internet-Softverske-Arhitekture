@@ -54,7 +54,7 @@ public class StavkeJelovnika extends Controller{
 		
 		Porudzbina porudzbina = new Porudzbina(stavkaJelovnika, restoran);
 		porudzbina.save();
-		redirect("http://localhost:9000/Jelovnici/show");
+		redirect("http://localhost:9000/Jelovnici/showGosti");
 	}
 }
 
