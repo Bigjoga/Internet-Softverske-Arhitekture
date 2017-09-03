@@ -28,9 +28,17 @@ public class Restorani extends Controller{
 	}
 	
 	public static void izborRestorana(Restoran restoran)
-	{ 
-		session.put("restoran", restoran.nazivRestorana);
-		redirect("http://localhost:9000/Jelovnici/showGosti");
+	{ 		
+		if(session.get("uloga").equals("Gost"))
+		{
+			session.put("restoran", restoran.nazivRestorana);
+			redirect("http://localhost:9000/Jelovnici/showGosti");
+		}
+		else if(session.get("uloga").equals("Menadzer"))
+		{
+			session.put("restoran", restoran.nazivRestorana);
+			redirect("http://localhost:9000/Jelovnici/show");
+		}
 	}
 	
 	public static void edit(Restoran restoran)

@@ -29,13 +29,38 @@ public class Jelovnici extends Controller{
 		
 		if(mode == null || mode.equals(""))
 			mode = "edit";
+		
+		render(jelovnicizaprikaz,restoran,mode,selectedIndex);
+	}
+	
+	public static void showGosti(String mode, Long selectedIndex)
+	{
+		List<Jelovnik> jelovnici = Jelovnik.findAll();
+		List<Jelovnik>  jelovnicizaprikaz= new ArrayList<>();
+		List<Restoran> restorano= Restoran.findAll();
+	    Restoran restoran = new Restoran();
+		for(int  i =0; i<restorano.size();i++){
+			if(restorano.get(i).nazivRestorana.equals(session.get("restoran"))){
+				restoran=restorano.get(i);
+			}
+		}
+		
+		for(int i=0; i<jelovnici.size();i++){
+			if(jelovnici.get(i).restoran.nazivRestorana.equals(session.get("restoran").toString())){
+				jelovnicizaprikaz.add(jelovnici.get(i));
+			}
+		}
+		
+		if(mode == null || mode.equals(""))
+			mode = "edit";
+		
+		
 		render(jelovnicizaprikaz,restoran,mode,selectedIndex);
 	}
 	
 	public static void izborJelovnika(Jelovnik jelovnik)
 	{ 
 		session.put("jelovnik", jelovnik.nazivJelovnika);
-		System.out.println(session.get("jelovnik"));
 		redirect("http://localhost:9000/StavkeJelovnika/show");
 	}
 	
