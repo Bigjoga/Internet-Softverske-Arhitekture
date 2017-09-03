@@ -91,6 +91,10 @@ public class Korisnik extends Model {
 		this.uloga = uloga;
 		this.restoran = restoran;
 	}
+	
+	public Korisnik() {
+		
+	}
 
 	//-----------------------
 	

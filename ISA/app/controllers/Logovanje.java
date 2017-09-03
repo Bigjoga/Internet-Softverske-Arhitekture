@@ -29,7 +29,7 @@ public class Logovanje extends Controller{
 				session.put("email", kor.email);
 				session.put("sifra", kor.sifra);
 				session.put("ime", kor.ime);
-				session.put("uloga", kor.uloga);
+				session.put("uloga", kor.uloga.nazivUloge);
 				
 				if(kor.restoran!=null){
 					session.put("restoran", kor.restoran.nazivRestorana);

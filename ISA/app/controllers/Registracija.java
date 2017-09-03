@@ -17,6 +17,7 @@ public class Registracija extends Controller{
 	
 	public static void registracija(Korisnik korisnik, Long Restoran)
 	{
+		/*
 		validation.required(korisnik.adresa);
 		validation.required(korisnik.email);
 		validation.required(korisnik.ime);
@@ -25,7 +26,7 @@ public class Registracija extends Controller{
 		validation.maxSize(korisnik.email, 50);
 		validation.maxSize(korisnik.ime, 50);
 		validation.maxSize(korisnik.sifra, 50);
-		
+		*/
 		
 		String sifra=korisnik.sifra;
 		System.out.println(sifra);
@@ -45,6 +46,7 @@ public class Registracija extends Controller{
 		
 		if(sifra1.toString().equals(SSIFRA2[1].toString())){
 			System.out.println("iste si ");
+			
 			Korisnik kor= new Korisnik(
 					korisnik.email,
 					SSIFRA2[1].toString(),
