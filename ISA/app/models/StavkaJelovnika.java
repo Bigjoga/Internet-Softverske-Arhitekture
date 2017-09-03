@@ -23,9 +23,6 @@ import play.db.jpa.Model;
 
 public class StavkaJelovnika extends Model {
 
-	
-	
-
 	@Column(name = "Cena_stavke_jelovnika", unique = false, nullable = false)
 	public Double cena;
 	
@@ -34,6 +31,12 @@ public class StavkaJelovnika extends Model {
 	
 	@ManyToOne
 	public Jelo jelo;
+	
+	@OneToMany(mappedBy = "stavkaJelovnika")
+	public List<Spreman> spreman;
+	
+	@OneToMany(mappedBy = "stavkaJelovnika")
+	public List<Dostavi> dostavi;
 	
 	@OneToMany(mappedBy="stavkaJlovnika")
 	public List<Porudzbina> porudzbina;

@@ -20,11 +20,8 @@ import javax.persistence.Table;
 
 import play.db.jpa.Model;
 
-
-
 @Entity
 @Table(name="Jelovnik")
-
 public class Jelovnik extends Model {
 
 	

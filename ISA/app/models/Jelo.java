@@ -1,17 +1,10 @@
 package models;
 
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,7 +30,5 @@ public  class Jelo extends Model{
 	
 	@OneToMany(mappedBy = "jelo")
 	public List<StavkaJelovnika> stavkeJelovnika ;
-
-	
 	
 }

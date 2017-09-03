@@ -1,0 +1,36 @@
+#{extends 'standardForm.html' /}
+#{set title:'Dostava'/}
+
+<p>
+<ul>
+  <li><a href="@{Dostava.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Dostava.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Dostava.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Dostavljena jela</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Jelo</th> 
+	</tr>
+	
+#{list items:dostaviJelaZaPrikaz, as:'dostaviJela'}
+	<tr #{if dostaviJela.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${dostaviJela.stavkaJelovnika.id}" class = "stavkaJelovnika">${dostaviJela.stavkaJelovnika.jelo.nazivJela}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostaviJela.id}</td>
+	</tr>
+#{/list}
+</table>
+
+</br>
+</div>
