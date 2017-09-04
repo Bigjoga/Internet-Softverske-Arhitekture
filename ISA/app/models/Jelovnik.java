@@ -43,6 +43,7 @@ public class Jelovnik extends Model {
 	@OneToMany(mappedBy = "jelovnik")
 	public List<StavkaJelovnika> stavkeJelovnika ;
 
-	
-	
+	public Jelovnik() {
+		super();
+	}
 }

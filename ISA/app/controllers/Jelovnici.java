@@ -60,8 +60,16 @@ public class Jelovnici extends Controller{
 	
 	public static void izborJelovnika(Jelovnik jelovnik)
 	{ 
+		System.out.println("ovo je odabrani jelovnik  " + jelovnik.nazivJelovnika);
 		session.put("jelovnik", jelovnik.nazivJelovnika);
-		redirect("http://localhost:9000/StavkeJelovnika/show");
+		
+		if(session.get("uloga").equals("Gost")){
+			redirect("http://localhost:9000/StavkeJelovnika/show");
+		}
+		
+		if(session.get("uloga").equals("Menadzer")){
+			redirect("http://localhost:9000/StavkeJelovnika/showMenadzer");
+		}
 	}
 	
 	public static void create(Jelovnik jelovnik, Long restoran)

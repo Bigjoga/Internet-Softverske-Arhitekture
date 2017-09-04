@@ -30,5 +30,11 @@ public  class Jelo extends Model{
 	
 	@OneToMany(mappedBy = "jelo")
 	public List<StavkaJelovnika> stavkeJelovnika ;
-	
+
+	public Jelo(String nazivJela, String opisJela) {
+		super();
+		this.nazivJela = nazivJela;
+		this.opisJela = opisJela;
+	}
+
 }
