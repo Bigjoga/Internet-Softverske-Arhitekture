@@ -20,7 +20,10 @@ public class Pice extends Model {
 	@Column(name = "Opis_pica", unique = false, nullable = false)
 	public String opisPica;
 	
-	@Column(name = "Cena_karte_pica", unique = false, nullable = false)
+	@Column(name = "Cena", unique = false, nullable = false)
 	public Double cena;
+	
+	@ManyToOne
+	public KartaPica kartaPica;
 
 }

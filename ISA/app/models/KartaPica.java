@@ -20,4 +20,7 @@ public class KartaPica extends Model{
 	@ManyToOne
 	public Restoran restoran;
 	
+	@OneToMany(mappedBy = "kartaPica")
+	public List<Pice> pica;
+	
 }

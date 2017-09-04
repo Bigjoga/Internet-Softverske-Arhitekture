@@ -24,8 +24,6 @@ import play.db.jpa.Model;
 @Table(name="Restoran")
 public class Restoran extends Model {
 
-	
-	
 	@Column(name = "Naziv_restorana", unique = false, nullable = false)
 	public String nazivRestorana;
 	
@@ -48,7 +46,8 @@ public class Restoran extends Model {
 	public String adresa;
 	
 	
-	
+	@OneToMany(mappedBy = "restoran")
+	public List<KartaPica> kartaPica;
 	/*@OneToMany(cascade = { ALL }, fetch = EAGER, mappedBy = "restoran")
 	private Set<Korisnik> menadzeri = new HashSet<Korisnik>();*/
 	@OneToMany(mappedBy = "restoran")
