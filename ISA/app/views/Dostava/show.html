@@ -1,10 +1,21 @@
 #{extends 'standardForm.html' /}
 #{set title:'Dostava'/}
 
+<script>
+
+function sync(item){
+	jelo = item.find(".jelo").html()
+    id = item.find(".id").html()
+    $("#dostavi_jelo").val(jelo);
+    $("#dostavi_id").val(id);
+}
+
+</script>
+
 <p>
 <ul>
   <li><a href="@{Dostava.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Dostava.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{Dostava.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/>Izmeni</a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
@@ -32,5 +43,36 @@
 #{/list}
 </table>
 
+<div class = "panel">
+	<p>
+
+		#{set 'action'}
+		  	#{if mode == 'edit'}
+		   	 	@{Dostava.edit()}
+		  	#{/if}
+		#{/set}
+		
+		<form action=${action} method="post">
+		
+				#{field 'drzava.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'dostavi_jelo'}
+					<label for = "${field.id}">Jelo</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span class="error">#{error field.name /}</span>
+				#{/}
+				</p>
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				 
+		</form>
+	</p>
+	
 </br>
+</div>
 </div>

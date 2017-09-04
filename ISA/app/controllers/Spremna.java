@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Dostavi;
 import models.Restoran;
 import models.Spreman;
 import models.StavkaJelovnika;
@@ -36,5 +37,24 @@ public class Spremna extends Controller{
 		
 		render(stavkeJelovnika,spremnaJelaZaPrikaz,mode,selectedIndex);
 	}
-
+	
+	public static void dostaviKonobaru(StavkaJelovnika stavkaJelovnika)
+	{
+		List<Restoran> restorani = Restoran.findAll();
+		List<StavkaJelovnika> stavkeJelovnika = StavkaJelovnika.findAll();
+		List<StavkaJelovnika> stavkeJelovnikaZaPrikaz = new ArrayList<>();
+		for(int i=0; i<stavkeJelovnika.size();i++)
+		{
+			if(restorani.get(i).nazivRestorana.equals(session.get("restoran")))
+			{
+				System.out.println("RESTORAN KOJI SE NALAZI U SESIJI JE: ----->" + session.get("restoran"));
+				stavkeJelovnikaZaPrikaz.add(stavkeJelovnika.get(i));
+			}
+		}
+		stavkaJelovnika = stavkeJelovnikaZaPrikaz.get(0);
+		
+		Dostavi dost = new Dostavi(stavkaJelovnika);
+		dost.save();
+		show("dostavi", null);
+	}
 }

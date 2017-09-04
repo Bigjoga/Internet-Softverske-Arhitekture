@@ -62,22 +62,16 @@ public class Prijatelji extends Controller{
 		show("add", prijateljjjj.id);
 	}
 	
-	public static void posaljiMejl(Prijatelj prijatelj)
+	public static void posaljiMejl(Prijatelj prijatelj) throws EmailException
 	{
 		SimpleEmail email = new SimpleEmail();
-		try {
-			email.setFrom(session.get("email"));
-			email.addTo("gajicnikola41@gmail.com");
-			email.setSubject("Poziv za restoran");
-			email.setMsg(session.get("email") + " Vas poziva u " + session.get("restoran") + " na rucak. ");
-			Mail.send(email);
-			
-			System.out.println("MEJL JE USPESNO POSLAT NA ADRESU");
-			
-		} catch (EmailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		email.setFrom(session.get("email"));
+		email.addTo("gajicnikola41@gmail.com");
+		email.setSubject("Poziv za restoran");
+		email.setMsg(session.get("ime") + " Vas poziva u " + session.get("restoran") + " na rucak. ");
+		Mail.send(email);
+		
+		System.out.println("MEJL JE USPESNO POSLAT NA ADRESU");
 	}
 	
 	/*

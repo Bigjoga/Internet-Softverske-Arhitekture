@@ -1,6 +1,16 @@
 #{extends 'standardForm.html' /}
 #{set title:'Spremna jela'/}
 
+<script>
+function sync(item){
+	
+	stavkaJelovnika = item.find(".stavkaJlovnika").html()
+    id = item.find(".id").html()
+    $("#stavkaJelovnika").val(stavkaJelovnika);
+    $("#spremna_id").val(id);
+}
+</script>
+
 <p>
 <ul>
   <li><a href="@{Spremna.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
@@ -12,6 +22,7 @@
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Spremna.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{Spremna.show("dostaviKonobaru",null)}" id = "add">Jelo je spremno<img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -31,6 +42,36 @@
 	</tr>
 #{/list}
 </table>
+
+#{set 'action'}
+		  #{if mode == 'dostaviKonobaru'}
+		    @{Spremna.dostaviKonobaru()}
+		  #{/if}
+#{/set}
+
+
+</br>
+<form action = "${action}">
+		
+				#{field 'spremnaJela.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+
+				<p>
+				#{field 'stavkaJelovnika'}
+					<label for = "${field.id}">Stavka jelovnika</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				
+		</form>
+
 
 </br>
 </div>
