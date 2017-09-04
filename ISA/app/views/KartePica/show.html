@@ -36,12 +36,12 @@ $(document).ready(function(){
 
 function sync(item){
 	
-    pica_naziv = item.find(".pica_naziv").html()
+    nazivKartePica = item.find(".nazivKartePica").html()
 	restoran = item.find(".restoran").attr("value");
     id = item.find(".id").html()
     
     
-    $("#kartaPica_nazivKartePica").val(pica_naziv);
+    $("#kartaPica_nazivKartePica").val(nazivKartePica);
     $("#restoran").val(restoran);
     $("#jelovnik_id").val(id);
 }
@@ -74,7 +74,6 @@ function remove(id)
   <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{KartePica.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="@{KartePica.show("izborJelovnika",null)}" id = "nextform">Izbor jelovnika<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -87,11 +86,11 @@ function remove(id)
 	   <th>Naziv karte pica</th> 
 	   <th>Restoran</th>
 	</tr>
-#{list items:kartePicaZaPrikaz, as:'pica'}
-	<tr #{if pica.id == selectedIndex} class = "highlighted trww" #{/if} class="trww">
-		<td class = "pica_naziv">${pica.nazivPica}</td>
-		<td value="${pica.kartaPica.restoran.id}" class = "restoran">${pica.kartaPica.restoran.nazivRestorana}</td>
-		<td style = "visibility: hidden; max-width: 0px" class = "id">${pica.id}</td>
+#{list items:kartePica, as:'kartaPica'}
+	<tr #{if kartaPica.id == selectedIndex} class = "highlighted trww" #{/if} class="trww">
+		<td class = "nazivKartePica">${kartaPica.nazivKartePica}</td>
+		<td value="${kartaPica.restoran.id}" class = "restoran">${kartaPica.restoran.nazivRestorana}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${kartaPica.id}</td>
 	</tr>
 #{/list}
 </table>

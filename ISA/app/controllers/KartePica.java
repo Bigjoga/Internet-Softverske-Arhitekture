@@ -40,7 +40,7 @@ public class KartePica extends Controller{
 		if(mode == null || mode.equals(""))
 			mode = "edit";
 		
-		render(kartePicaZaPrikaz,restorann,mode,selectedIndex);
+		render(kartePica,restorann,mode,selectedIndex);
 	}
 	
 }
