@@ -67,6 +67,7 @@ function remove(id)
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Prijatelji.show("add",null)}" id = "add">Dodaj<img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="@{Prijatelji.show("posaljiMejl",null)}" id = "add">Posalji poziv<img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -99,9 +100,12 @@ function remove(id)
 		  #{elseif mode == 'edit'}
 		    @{Prijatelji.edit()}
 		  #{/elseif}
-		  #{else}
+		  #{elseif mode == 'filter'}
 		    @{Prijatelji.filter()}
-		  #{/else}
+		  #{/elseif}
+		  #{elseif mode == 'posaljiMejl'}
+		  	@{Prijatelji.posaljiMejl()}
+		  #{/elseif}
 		#{/set}
 	
 		<form action=${action} method="post">

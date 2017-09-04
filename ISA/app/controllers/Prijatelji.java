@@ -5,7 +5,11 @@ import java.util.List;
 
 import models.Korisnik;
 import models.Prijatelj;
-import models.UlogaKorisnika;
+
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
+import play.libs.Mail;
 import play.mvc.Controller;
 
 public class Prijatelji extends Controller{
@@ -58,6 +62,23 @@ public class Prijatelji extends Controller{
 		show("add", prijateljjjj.id);
 	}
 	
+	public static void posaljiMejl(Prijatelj prijatelj)
+	{
+		SimpleEmail email = new SimpleEmail();
+		try {
+			email.setFrom(session.get("email"));
+			email.addTo("gajicnikola41@gmail.com");
+			email.setSubject("Poziv za restoran");
+			email.setMsg(session.get("email") + " Vas poziva u " + session.get("restoran") + " na rucak. ");
+			Mail.send(email);
+			
+			System.out.println("MEJL JE USPESNO POSLAT NA ADRESU");
+			
+		} catch (EmailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/*
 	public static void nextMehanizam(Long id)
