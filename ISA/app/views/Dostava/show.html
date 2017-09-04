@@ -10,6 +10,20 @@ function sync(item){
     $("#dostavi_id").val(id);
 }
 
+function remove(id)
+{
+	var answer = confirm("Da li zelite da zavrsite porudzbinu i kreirate racun?");
+	if(answer)
+		{
+			$(location).attr('href','/Dostava/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+	
+}
+
 </script>
 
 <p>
@@ -23,6 +37,7 @@ function sync(item){
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Dostava.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove">Kreiraj racun<img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -35,17 +50,16 @@ function sync(item){
 	   <th>Jelo</th> 
 	</tr>
 	
-#{list items:dostaviJelaZaPrikaz, as:'dostaviJela'}
-	<tr #{if dostaviJela.id == selectedIndex} class = "highlighted" #{/if}>
-		<td value="${dostaviJela.stavkaJelovnika.id}" class = "stavkaJelovnika">${dostaviJela.stavkaJelovnika.jelo.nazivJela}</td>
-		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostaviJela.id}</td>
+#{list items:dostaviJelaZaPrikaz, as:'dostavi'}
+	<tr #{if dostavi.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${dostavi.stavkaJelovnika.id}" class = "stavkaJelovnika">${dostavi.stavkaJelovnika.jelo.nazivJela}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostavi.id}</td>
 	</tr>
 #{/list}
 </table>
 
 <div class = "panel">
 	<p>
-
 		#{set 'action'}
 		  	#{if mode == 'edit'}
 		   	 	@{Dostava.edit()}

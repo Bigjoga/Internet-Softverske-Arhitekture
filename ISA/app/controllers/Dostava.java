@@ -41,4 +41,11 @@ public class Dostava extends Controller{
 		dostavi.save();
 		show("edit", dostavi.id);
 	}
+	
+	public static void delete(Long id)
+	{
+		Dostavi dos = Dostavi.findById(id);
+		dos.delete();
+		show("edit", dos.id-1);
+	}
 }
