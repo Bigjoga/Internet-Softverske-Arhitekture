@@ -9,7 +9,7 @@ import models.Spreman;
 import play.mvc.Controller;
 
 public class Dostava extends Controller{
-
+//klasa dostavi
 	public static void show(String mode, Long selectedIndex)
 	{
 		if(session.isEmpty())
