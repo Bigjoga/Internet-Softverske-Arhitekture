@@ -20,8 +20,8 @@ function sync(item){
 
 <p>
 <ul>
-  <li><a href="@{StavkeJelovnika.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{StavkeJelovnika.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{Pica.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Pica.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
@@ -29,7 +29,7 @@ function sync(item){
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   
-  <li><a href="@{StavkeJelovnika.show("naruci",null)}" id = "nextform">Naruci<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{Pica.show("naruci",null)}" id = "nextform">Naruci<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -44,7 +44,7 @@ function sync(item){
 	   <th>Karta pica</th>
 	</tr>
 	
-#{list items:pica, as:'pice'}
+#{list items:picaZaPrikaz, as:'pice'}
 	<tr #{if pice.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "nazivPica">${pice.nazivPica}</td>
 		<td class = "cena">${pice.cena}</td>
@@ -53,6 +53,12 @@ function sync(item){
 	</tr>
 #{/list}
 </table>
+
+#{set 'action'}	
+		  #{if mode == 'naruci'}
+		    @{Pica.naruci()}
+		  #{/if}
+#{/set}
 
 <div class = "panel">
 	<p>

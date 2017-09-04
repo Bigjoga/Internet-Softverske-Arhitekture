@@ -25,5 +25,8 @@ public class Pice extends Model {
 	
 	@ManyToOne
 	public KartaPica kartaPica;
+	
+	@OneToMany(mappedBy = "pice")
+	public List<PorudzbinaPica> porudzbinaPica;
 
 }

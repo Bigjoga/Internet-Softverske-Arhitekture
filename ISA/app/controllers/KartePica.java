@@ -43,4 +43,24 @@ public class KartePica extends Controller{
 		render(kartePica,restorann,mode,selectedIndex);
 	}
 	
+	public static void izborKartePica(KartaPica kartaPica)
+	{
+		System.out.println("Ovo je selektovana karta pica -----> " + kartaPica.nazivKartePica.toString());
+		session.put("kartaPica", kartaPica.nazivKartePica);
+		redirect("http://localhost:9000/Pica/show");
+	}
+	
+	public static void naruciPice()
+	{
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
