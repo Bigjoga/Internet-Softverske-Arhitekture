@@ -29,4 +29,7 @@ public class Pice extends Model {
 	@OneToMany(mappedBy = "pice")
 	public List<PorudzbinaPica> porudzbinaPica;
 
+	@OneToMany(mappedBy = "pice")
+	public List<DostaviPica> dostaviPica;
+	
 }

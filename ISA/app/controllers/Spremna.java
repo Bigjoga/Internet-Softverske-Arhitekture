@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Dostavi;
+import models.DostaviPica;
+import models.Pice;
 import models.Restoran;
 import models.Spreman;
 import models.StavkaJelovnika;
@@ -54,6 +56,25 @@ public class Spremna extends Controller{
 		stavkaJelovnika = stavkeJelovnikaZaPrikaz.get(0);
 		
 		Dostavi dost = new Dostavi(stavkaJelovnika);
+		dost.save();
+		show("dostavi", null);
+	}
+	
+	public static void dostaviSankeru(Pice pice)
+	{
+		List<Restoran> restorani = Restoran.findAll();
+		List<Pice> picence = StavkaJelovnika.findAll();
+		List<Pice> picenceZaPrikaz = new ArrayList<>();
+		for(int i=0; i<picence.size();i++)
+		{
+			if(restorani.get(i).nazivRestorana.equals(session.get("restoran")))
+			{
+				picenceZaPrikaz.add(picence.get(i));
+			}
+		}
+		pice = picenceZaPrikaz.get(0);
+		
+		DostaviPica dost = new DostaviPica(pice);
 		dost.save();
 		show("dostavi", null);
 	}

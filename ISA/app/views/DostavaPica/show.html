@@ -4,77 +4,56 @@
 <script>
 
 function sync(item){
-	jelo = item.find(".jelo").html()
+	pice = item.find(".pice").html()
     id = item.find(".id").html()
-    $("#dostavi_jelo").val(jelo);
-    $("#dostavi_id").val(id);
+    $("#dostaviPica_pice").val(pice);
+    $("#dostaviPica_id").val(id);
 }
-
-function remove(id)
-{
-	var answer = confirm("Da li zelite da zavrsite porudzbinu i kreirate racun?");
-	if(answer)
-		{
-			$(location).attr('href','/Dostava/delete?id='+id);
-		}
-	else
-		{
-		
-		}
-	
-}
-
 </script>
 
 <p>
 <ul>
-  <li><a href="@{Dostava.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Dostava.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/>Izmeni</a></li>
+  <li><a href="@{DostavaPica.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{DostavaPica.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/>Izmeni</a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Dostava.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{DostavaPica.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove">Kreiraj racun<img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
 
 <div class = "container-fluid">
-<h1>Dostavljena jela</h1>
+<h1>Dostavljena pica</h1>
 
 <table class="TabelaForme">
 	<tr class = "header">
-	   <th>Jelo</th> 
+	   <th>Pice</th> 
 	</tr>
-	
-#{list items:dostaviJelaZaPrikaz, as:'dostavi'}
-	<tr #{if dostavi.id == selectedIndex} class = "highlighted" #{/if}>
-		<td value="${dostavi.stavkaJelovnika.id}" class = "stavkaJelovnika">${dostavi.stavkaJelovnika.jelo.nazivJela}</td>
-		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostavi.id}</td>
+
+#{list items:dostaviPicaZaPrikaz, as:'dostaviPice'}
+	<tr #{if dostaviPice.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${dostaviPice.pice.id}" class = "stavkaJelovnika">${dostaviPice.pice.nazivPica}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostaviPice.id}</td>
 	</tr>
 #{/list}
 </table>
 
 <div class = "panel">
 	<p>
-		#{set 'action'}
-		  	#{if mode == 'edit'}
-		   	 	@{Dostava.edit()}
-		  	#{/if}
-		#{/set}
-		
 		<form action=${action} method="post">
 		
-				#{field 'dostavi.id'}
+				#{field 'dostaviPica.id'}
 					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				
 				<p>
-				#{field 'dostavi_jelo'}
-					<label for = "${field.id}">Jelo</label>
+				#{field 'dostaviPica.pice'}
+					<label for = "${field.id}">Pice</label>
 					<input type = "text" name = "${field.name}" id = "${field.id}"/>
 					<span class="error">#{error field.name /}</span>
 				#{/}
