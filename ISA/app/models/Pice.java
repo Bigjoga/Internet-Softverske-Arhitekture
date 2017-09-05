@@ -31,5 +31,14 @@ public class Pice extends Model {
 
 	@OneToMany(mappedBy = "pice")
 	public List<DostaviPica> dostaviPica;
-	
+
+	public Pice(String nazivPica, String opisPica, Double cena,
+			KartaPica kartaPica) {
+		super();
+		this.nazivPica = nazivPica;
+		this.opisPica = opisPica;
+		this.cena = cena;
+		this.kartaPica = kartaPica;
+	}
+
 }

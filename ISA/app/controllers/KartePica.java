@@ -18,14 +18,14 @@ public class KartePica extends Controller{
 		
 		List<KartaPica> kartePica = KartaPica.findAll();
 		List<KartaPica> kartePicaZaPrikaz = new ArrayList<>();
-		List<Restoran> restoran = Restoran.findAll();
-		Restoran restorann = new Restoran();
+		List<Restoran> restorann = Restoran.findAll();
+		Restoran restoran = new Restoran();
 		
-		for(int i=0; i<restoran.size(); i++)
+		for(int i=0; i<restorann.size(); i++)
 		{
-			if(restoran.get(i).nazivRestorana.equals(session.get("restoran")))
+			if(restorann.get(i).nazivRestorana.equals(session.get("restoran")))
 			{
-				restorann = restoran.get(i);
+				restoran = restorann.get(i);
 			}
 		}
 		
@@ -40,21 +40,78 @@ public class KartePica extends Controller{
 		if(mode == null || mode.equals(""))
 			mode = "edit";
 		
-		render(kartePica,restorann,mode,selectedIndex);
+		render(kartePicaZaPrikaz,restoran,mode,selectedIndex);
 	}
 	
-	public static void izborKartePica(KartaPica kartaPica)
+	public static void showGosti(String mode, Long selectedIndex)
 	{
-		System.out.println("Ovo je selektovana karta pica -----> " + kartaPica.nazivKartePica.toString());
-		session.put("kartaPica", kartaPica.nazivKartePica);
-		redirect("http://localhost:9000/Pica/show");
-	}
-	
-	public static void naruciPice()
-	{
+		if(session.isEmpty())
+		{
+			redirect("http://localhost:9000/logovanje/show");
+		}
 		
+		List<KartaPica> kartePica = KartaPica.findAll();
+		List<KartaPica> kartePicaZaPrikaz = new ArrayList<>();
+		List<Restoran> restorann = Restoran.findAll();
+		Restoran restoran = new Restoran();
+		
+		for(int i=0; i<restorann.size(); i++)
+		{
+			if(restorann.get(i).nazivRestorana.equals(session.get("restoran")))
+			{
+				restoran = restorann.get(i);
+			}
+		}
+		
+		for(int i=0; i<kartePica.size(); i++)
+		{
+			if(kartePica.get(i).restoran.nazivRestorana.equals(session.get("restoran").toString()))
+			{
+				kartePicaZaPrikaz.add(kartePica.get(i));
+			}
+		}
+		
+		if(mode == null || mode.equals(""))
+			mode = "edit";
+		
+		render(kartePicaZaPrikaz,restoran,mode,selectedIndex);
 	}
 	
+	public static void create(KartaPica kartePica, Long restoran)
+	{
+		Restoran rest = Restoran.findById(restoran);
+		kartePica.restoran = rest;
+		kartePica.save();
+		show("add", kartePica.id);
+	}
+	
+	public static void edit(KartaPica kartePica, Long restoran)
+	{
+		Restoran rest = Restoran.findById(restoran);
+		kartePica.restoran=rest;
+		kartePica.save();
+		show("edit", kartePica.id);
+	}
+	
+	public static void delete(Long id)
+	{
+		KartaPica karta = KartaPica.findById(id);
+		karta.delete();
+		show("edit", karta.id-1);
+	}
+	
+	public static void izborKartePica(KartaPica kartePica)
+	{
+		session.put("kartaPica", kartePica.nazivKartePica);
+		
+		if(session.get("uloga").equals("Gost")){
+			redirect("http://localhost:9000/Pica/show");
+		}
+		
+		if(session.get("uloga").equals("Menadzer")){
+			redirect("http://localhost:9000/Pica/showMenadzer");
+		}
+	}
 }
 
 

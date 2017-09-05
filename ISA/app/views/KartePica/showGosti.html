@@ -1,5 +1,5 @@
 #{extends 'standardForm.html' /}
-#{set title:'Karte Pica' /}
+#{set title:'Karte pica' /}
 
 #{set 'prikazani'}
 	idZaPrikaz
@@ -21,6 +21,9 @@ function GetURLParameter(sParam)
 	        }
 	    }
 	}
+
+
+
 
 $(document).ready(function(){
 	var zaPrikazivanjeStoTreba = 0;
@@ -44,44 +47,28 @@ function sync(item){
     $("#kartePica_nazivKartePica").val(nazivKartePica);
     $("#restoran").val(restoran);
     $("#kartePica_id").val(id);
+    
 }
-
-function remove(id)
-{
-	var answer = confirm("Are you sure you want to delete?");
-	if(answer)
-		{
-			$(location).attr('href','/KartePica/delete?id='+id);
-		}
-	else
-		{
-		
-		}
-}
-
 
 </script>
 
 <p>
 <ul>
-  <li><a href="@{KartePica.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{KartePica.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{KartePica.showGosti("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{KartePica.showGosti("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a  id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a  id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a  id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{KartePica.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="#" id = "nextform"><img src="@{'/public/images/nextform.gif'}"/></a></li>
-  <li><a href="@{KartePica.show("izborKartePica",null)}" id = "nextform">Izbor karte pica<img src="@{'/public/images/nextform.gif'}"/></a></li>
-  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>	
+  <li><a href="@{KartePica.showGosti("izborKartePica",null)}" id = "nextform">Izbor karte pica<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
 
 <div class = "container-fluid">
-<h1>Karte Pica</h1>
+<h1>Karte pica</h1>
 
 <table class="TabelaForme">
 	<tr class = "header">
@@ -96,7 +83,8 @@ function remove(id)
 	</tr>
 #{/list}
 </table>
-  
+
+
 #{set 'action'}
     #{if mode == 'add'}
         @{KartePica.create()}
@@ -108,6 +96,8 @@ function remove(id)
         @{KartePica.izborKartePica()}
     #{/elseif}
   #{/set}
+ 
+
   
 <div class = "panel">
 	<p>
@@ -120,7 +110,7 @@ function remove(id)
 				
 				<p>
 				#{field 'kartePica.nazivKartePica'}
-					<label for = "${field.id}">Naziv karte pica</label>
+					<label for = "${field.id}">Naziv jelovnika</label>
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
@@ -129,6 +119,8 @@ function remove(id)
 				#{field 'restoran'}
 					<label for = "${field.id}">Restoran</label>
 					<select name = "${field.name}" id = "${field.id}" />
+<!-- 				ovako je izgledao gornji red ali tada nije radio!?!
+					<select style="margin-left: 50px; name = "${field.name}" id = "${field.id}"/> -->
 					#{list items:restoran, as:'res'}
 					<option value = "${res.id}">${res.nazivRestorana}</option>
 					#{/list}
@@ -158,7 +150,7 @@ function remove(id)
       <!-- Modal content-->
       <div class="modal-content">
       <div class="modal-header">
-      	Restorani koji se nalaze u sistemu:
+      	Drzave koje se nalaze u sistemu:
       </div>
       <div class="modal-body">
 	    <table style = "padding:2em">

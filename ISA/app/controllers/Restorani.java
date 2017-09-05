@@ -40,12 +40,12 @@ public class Restorani extends Controller{
 			{
 				//redirect("http://localhost:9000/Izbor/show");
 				System.out.println("gost sam");
-				redirect("http://localhost:9000/Jelovnici/showGosti");
-				//renderTemplate("Izbor/show.html");
+				//redirect("http://localhost:9000/Jelovnici/showGosti");
+				renderTemplate("Izbor/show.html");
 			}
 			else if(kor.uloga.nazivUloge.toString().equals("Menadzer"))
 			{		
-				redirect("http://localhost:9000/Jelovnici/show");
+				redirect("http://localhost:9000/KartePica/show");
 			}
 		}
 	}

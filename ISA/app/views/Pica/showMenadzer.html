@@ -1,0 +1,139 @@
+#{extends 'standardForm.html' /}
+#{set title:'Stavke jelovnika'/}
+
+<script>
+
+function sync(item){
+	
+    nazivPica = item.find(".nazivPica").html()
+    opisPica = item.find(".opisPica").html()
+    cena = item.find(".cena").html()
+	kartaPicaval = item.find(".karta").attr("value");
+    id = item.find(".id").html()
+
+    $("#pice_nazivPica").val(nazivPica); 
+    $("#pice_opisPica").val(opisPica);
+    $("#pice_cena").val(cena);
+    $("#pice_id").val(id);
+    $("#karta").val(kartaPicaval);
+}
+
+function remove(id)
+{
+	var answer = confirm("Are you sure you want to delete?");
+	if(answer)
+		{
+			$(location).attr('href','/Pica/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+}
+
+</script>
+
+<p>
+<ul>
+  <li><a href="@{Pica.showMenadzer("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Pica.showMenadzer("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Pica.showMenadzer("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Stavke pica menadzer</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>pice</th>
+	   <th>Opis pica</th> 
+	   <th>Cena pica</th> 
+	   <th>karta pica</th>
+	</tr>
+	
+#{list items:picaZaPrikaz, as:'pica'}
+	<tr #{if pica.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "nazivPica">${pica.nazivPica}</td></td>
+		<td class = "opisPica">${pica.opisPica}</td>
+		<td class = "cena">${pica.cena}</td>
+		<td value="${pica.kartaPica.id}" class = "kartaPica">${pica.kartaPica.nazivKartePica}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${pica.id}</td>
+	</tr>
+#{/list}
+</table>
+
+#{set 'action'}	
+		  #{if mode == 'add'}
+       		 @{Pica.create()}
+   		  #{/if}
+   		  #{elseif mode == 'edit'}
+       		 @{Pica.edit()}
+   		  #{/elseif}  
+		  #{elseif mode == 'izborJelovnika'}
+		    @{Pica.show()}
+		  #{/elseif}
+		  #{elseif mode == 'naruci'}
+		    @{Pica.naruci()}
+		  #{/elseif} 
+#{/set}
+
+</br>
+
+<div class = "panel">
+	<p>
+	
+		<form action = "${action}">
+		
+				#{field 'pice.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'pice.nazivPica'}
+					<label for = "${field.id}">Pice</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'pice.opisPica'}
+					<label for = "${field.id}">Opis pica</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'pice.cena'}
+					<label for = "${field.id}">Cena pica </label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				#{field 'karta'}
+					<label for = "${field.id}">Karta</label>
+					<select name = "${field.name}" id = "${field.id}"/>
+					#{list items:karta, as:'krt'}
+					<option value = "${krt.id}">${krt.nazivKartePica}</option>
+					#{/list}
+				#{/}
+				</p>
+				<p>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				
+		</form>
+	</p>
+</div>
+</div>
