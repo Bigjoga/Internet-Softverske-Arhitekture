@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Rezervacija stola</title>
+<style>
+.button {
+    background-color: #4CAF50;
+	width: 150px;
+	height: 100px;
+}
+</style>
+</head>
+    <body align="center">
+    </br>
+    
+    <h1>Raspored stolova u ${restoran.nazivRestorana}</h1>
+    
+    </br>
+    </br>
+        
+		<h2>Rezervisite sto</h2>
+		
+        <table border="0" align="center">
+            <script language="javascript" type="text/javascript">
+            
+            	var dimX = ${restoran.dimX};
+				var dimY = ${restoran.dimY};
+     			var brojac=0;
+                for (var i = 1; i <= dimX; i++) 
+                {
+                	document.write("<tr>");
+                	for(var j=1 ; j<=dimY; j++){
+                		brojac++;
+                		document.write("<td><button id=" + brojac + " class=button onclick=reply_click(this.id)>" + brojac + "</button></td>")
+                	}
+                	document.write("</tr>");
+                }
+            </script>            
+        </table>
+
+<script>
+    function reply_click(clicked_id)
+    {
+        alert(clicked_id);
+    }
+</script>
+    
+    </body>
+</html>

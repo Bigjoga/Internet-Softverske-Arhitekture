@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.h2.engine.SysProperties;
+
 import models.Korisnik;
 import models.Restoran;
 import models.Rezervacija;
@@ -30,8 +32,6 @@ public class Restorani extends Controller{
 	public static void izborRestorana(Restoran restoran)
 	{ 		
 		session.put("restoran", restoran.nazivRestorana);
-		System.out.println("RESTORAN KOJI SE NALAZI U SESSIJI JE ----------> " + session.get("restoran"));
-		System.out.println("ULOGA ZA IZBOR RESTORANA JE ----------> " + session.get("uloga"));
 		
 		List<Korisnik> k = Korisnik.findAll();
 		for(Korisnik kor : k)
@@ -59,6 +59,7 @@ public class Restorani extends Controller{
 	
 	public static void rezervacija(Restoran restoran, Korisnik korisnik)
 	{
+		/*
 		java.sql.Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
 	    Date datum = java.sql.Date.valueOf(timeNow.toString());
 	    
@@ -76,7 +77,11 @@ public class Restorani extends Controller{
 	    
 	    Rezervacija rezervacija = new Rezervacija(datum, 1, korisnik, restoran);
 	    rezervacija.save();
-	    show("rezervacija", null);
+	    show("rezervacija", null);*/
+		session.put("idRestorana", restoran.id);
+		System.out.println("NAZVI RESTORANA JE -------------> " + session.get("idRestorana"));
+		//renderTemplate("RezervacijaStola/show.html");
+		render(restoran);
 	}
 	
 	public static void filter(Restoran restoran)
