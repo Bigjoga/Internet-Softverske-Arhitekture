@@ -9,6 +9,21 @@ function sync(item){
     $("#dostaviPica_pice").val(pice);
     $("#dostaviPica_id").val(id);
 }
+
+function remove(id)
+{
+	var answer = confirm("Da li zelite da zavrsite porudzbinu i kreirate racun?");
+	if(answer)
+		{
+			$(location).attr('href','/DostavaPica/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+	
+}
+
 </script>
 
 <p>

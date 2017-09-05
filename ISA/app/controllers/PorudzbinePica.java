@@ -7,6 +7,7 @@ import models.Pice;
 import models.PorudzbinaPica;
 import models.Restoran;
 import models.Spreman;
+import models.SpremanPice;
 import play.mvc.Controller;
 
 public class PorudzbinePica extends Controller{
@@ -52,7 +53,7 @@ public class PorudzbinePica extends Controller{
 		
 		pice = piciceZaPrikaz.get(0);
 		
-		Spreman spre = new Spreman(pice);
+		SpremanPice spre = new SpremanPice(pice);
 		spre.save();
 		show("spreeman", null);
 	}

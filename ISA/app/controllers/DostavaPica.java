@@ -6,7 +6,7 @@ import java.util.List;
 import models.Dostavi;
 import models.DostaviPica;
 import models.Restoran;
-import models.Spreman;
+import models.SpremanPice;
 import play.mvc.Controller;
 
 public class DostavaPica extends Controller{
@@ -19,8 +19,8 @@ public class DostavaPica extends Controller{
 		}
 		
 		List<Restoran> restorani = Restoran.findAll();
-		List<Spreman> spremnaPica = Spreman.findAll();
-		List<DostaviPica> dostaviPica = Dostavi.findAll();
+		List<SpremanPice> spremnaPica = SpremanPice.findAll();
+		List<DostaviPica> dostaviPica = DostaviPica.findAll();
 		List<DostaviPica> dostaviPicaZaPrikaz = new ArrayList<>();
 		
 		for(int i=0; i<dostaviPica.size(); i++)
@@ -34,6 +34,15 @@ public class DostavaPica extends Controller{
 		if(mode == null || mode.equals(""))
 			mode = "edit";
 		
+		System.out.println("BROJ PICA ZA DOSTAVU JE ---> " + dostaviPicaZaPrikaz.size());
+		
 		render(spremnaPica,dostaviPicaZaPrikaz,mode,selectedIndex);
+	}
+	
+	public static void delete(Long id)
+	{
+		DostaviPica dosPica = DostaviPica.findById(id);
+		dosPica.delete();
+		show("edit", dosPica.id-1);
 	}
 }
