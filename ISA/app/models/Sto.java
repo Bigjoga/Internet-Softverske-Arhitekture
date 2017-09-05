@@ -27,38 +27,22 @@ import play.db.jpa.Model;
 
 public class Sto extends Model {
 
-	
-
-	@Column(name = "Naziv_stola", unique = false, nullable = false)
+	@Column(name = "Naziv_stola", unique = true, nullable = false)
 	public String nazivStola;
-	
-	@Column(name = "PozX_stola", unique = false, nullable = false)
-	public Integer pozX;
-
-	@Column(name = "PozY_stola", unique = false, nullable = false)
-	public Integer pozY;
 	
 	@Column(name = "Broj_mesta", unique = false, nullable = false)
 	public Integer brojMesta;
 	
 	@ManyToOne
 	public Restoran restoran;
-		
+	
 	@OneToMany(mappedBy = "sto")
-	public List<RezervisaniStolovi> rezervisaniStolovi ;
+	public List<Rezervacija> rezervacija;
 
-	public Sto(String nazivStola, Integer pozX, Integer pozY,
-			Integer brojMesta, Restoran restoran,
-			List<RezervisaniStolovi> rezervisaniStolovi) {
+	public Sto(String nazivStola, Integer brojMesta, Restoran restoran) {
 		super();
 		this.nazivStola = nazivStola;
-		this.pozX = pozX;
-		this.pozY = pozY;
 		this.brojMesta = brojMesta;
 		this.restoran = restoran;
-		this.rezervisaniStolovi = rezervisaniStolovi;
-	}
-
-	
-	
+	}	
 }

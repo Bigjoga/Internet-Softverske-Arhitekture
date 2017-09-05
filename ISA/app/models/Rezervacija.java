@@ -38,6 +38,9 @@ public class Rezervacija extends Model {
 	@ManyToOne
 	public Restoran restoran;
 	
+	@ManyToOne
+	public Sto sto;
+	
 	@OneToMany(mappedBy = "rezervacija")
 	public List<PozivPrijatelja> pozvaniPrijateljiInfo;
 

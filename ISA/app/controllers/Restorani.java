@@ -1,16 +1,10 @@
 package controllers;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import org.h2.engine.SysProperties;
 
 import models.Korisnik;
 import models.Restoran;
-import models.Rezervacija;
-import models.UlogaKorisnika;
+import models.Sto;
 import play.mvc.Controller;
 
 public class Restorani extends Controller{
@@ -57,7 +51,7 @@ public class Restorani extends Controller{
 		show("add", restoran.id);
 	}
 	
-	public static void rezervacija(Restoran restoran, Korisnik korisnik)
+	public static void rezervacija(Restoran restoran, Korisnik korisnik, String mode)
 	{
 		/*
 		java.sql.Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
@@ -78,10 +72,14 @@ public class Restorani extends Controller{
 	    Rezervacija rezervacija = new Rezervacija(datum, 1, korisnik, restoran);
 	    rezervacija.save();
 	    show("rezervacija", null);*/
+				
 		session.put("idRestorana", restoran.id);
 		System.out.println("NAZVI RESTORANA JE -------------> " + session.get("idRestorana"));
-		//renderTemplate("RezervacijaStola/show.html");
 		render(restoran);
+	}
+	
+	public static void rezervisiSto( Restoran restoran){
+		
 	}
 	
 	public static void filter(Restoran restoran)
