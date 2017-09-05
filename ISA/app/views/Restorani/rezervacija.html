@@ -34,15 +34,60 @@
                 	}
                 	document.write("</tr>");
                 }
+               
             </script>            
         </table>
 
 <script>
     function reply_click(clicked_id)
     {
-        alert(clicked_id);
+    	document.getElementById(clicked_id).style.background='#ff0000';
+    	document.getElementById("brojStola").value = clicked_id;
+        //alert(clicked_id);
     }
 </script>
+  
+<p>
+<ul>
+  <li><a href="@{Restorani.rezervacija("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+</ul>
+</p>    
     
-    </body>
+    
+<div class = "panel">
+<p>
+	
+	#{set 'action'}
+    #{if mode == 'add'}
+        @{Restorani.rezervacija()}
+    #{/if}
+  	#{/set} 
+	
+		<form action = "${action}">
+					
+				<p>
+				#{field 'broj'}
+					<label for = "${field.id}">Broj stola</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "brojStola" readonly/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'restoran'}
+					<label for = "${field.id}">Restoran</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" value="${restoran.nazivRestorana}" id = "brojStola" readonly/>
+				#{/}
+				</p>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+				</div>			
+				
+		</form>
+</p>
+</div>
+    
+    
+     
+</body>
 </html>
