@@ -44,6 +44,9 @@ public class Korisnik extends Model {
 	public Integer brojPoseta;
 	//***************************************
 	
+	@OneToMany(mappedBy = "korisnik")
+	List<RasporedRada> rasporedRada;
+	
 	@ManyToOne
 	public UlogaKorisnika uloga;
 	

@@ -38,8 +38,10 @@ public class Restorani extends Controller{
 		{
 			if(kor.uloga.nazivUloge.toString().equals("Gost"))
 			{
+				//redirect("http://localhost:9000/Izbor/show");
 				System.out.println("gost sam");
 				redirect("http://localhost:9000/Jelovnici/showGosti");
+				//renderTemplate("Izbor/show.html");
 			}
 			else if(kor.uloga.nazivUloge.toString().equals("Menadzer"))
 			{		
