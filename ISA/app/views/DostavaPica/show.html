@@ -1,2 +1,97 @@
 
 
+#{extends 'standardForm.html' /}
+#{set title:'Dostava'/}
+
+<script>
+
+function sync(item){
+	pice = item.find(".pice").html()
+    id = item.find(".id").html()
+    $("#dostaviPica_pice").val(pice);
+    $("#dostaviPica_id").val(id);
+}
+
+  
+function remove(id)
+{
+  
+	var answer = confirm("Da li zelite da zavrsite porudzbinu i kreirate racun?");
+  
+	if(answer)
+		{
+      
+			$(location).attr('href','/DostavaPica/delete?id='+id);
+      
+		}
+  
+	else
+    
+		{
+		
+		}
+	
+}
+  
+
+</script>
+
+<p>
+<ul>
+  <li><a href="@{DostavaPica.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{DostavaPica.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/>Izmeni</a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{DostavaPica.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove">Kreiraj racun<img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Dostavljena pica</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Pice</th> 
+	</tr>
+
+#{list items:dostaviPicaZaPrikaz, as:'dostaviPice'}
+	<tr #{if dostaviPice.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${dostaviPice.pice.id}" class = "stavkaJelovnika">${dostaviPice.pice.nazivPica}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${dostaviPice.id}</td>
+	</tr>
+#{/list}
+</table>
+
+<div class = "panel">
+	<p>
+		<form action=${action} method="post">
+		
+				#{field 'dostaviPica.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'dostaviPica.pice'}
+					<label for = "${field.id}">Pice</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span class="error">#{error field.name /}</span>
+				#{/}
+				</p>
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				 
+		</form>
+	</p>
+	
+  
+</br>
+</div>
+</div>
