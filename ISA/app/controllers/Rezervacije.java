@@ -131,6 +131,6 @@ public class Rezervacije extends Controller{
 	{
 		Rezervacija rez = Rezervacija.findById(id);
 		rez.delete();
-		show("edit", rez.id-1);
+		showRezervacije("edit", rez.id-1);
 	}
 }
