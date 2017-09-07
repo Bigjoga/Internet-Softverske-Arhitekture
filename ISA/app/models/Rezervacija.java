@@ -55,12 +55,13 @@ public class Rezervacija extends Model {
 	}
 
 	public Rezervacija(Date datumVreme, Integer trajanje, Korisnik korisnik,
-			Restoran restoran) {
+			Restoran restoran, Sto sto) {
 		super();
 		this.datumVreme = datumVreme;
 		this.trajanje = trajanje;
 		this.korisnik = korisnik;
 		this.restoran = restoran;
+		this.sto=sto;
 	}
 	
 }

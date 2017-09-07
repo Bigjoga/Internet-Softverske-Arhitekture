@@ -1,61 +1,145 @@
-#{extends 'standardForm.html' /}
-#{set title:'Rezervacije'/}
-
-<script>
-
-function remove(id)
-{
-	var answer = confirm("Da li ste sigurni da zelite da otkazete rezervaciju?");
-	if(answer)
-		{
-			$(location).attr('href','/Rezervacije/delete?id='+id);
-		}
-	else
-		{
-		
-		}
-	
+<html>
+<head>
+<title>Rezervacija stola</title>
+<style>
+.button {
+    background-color: #4CAF50;
+	width: 150px;
+	height: 100px;
 }
 
-</script>
+.button2 {
+    background-color: #ff0000;
+	width: 150px;
+	height: 100px;
+}
 
+</style>
+</head>
+    <body align="center">
+    </br>
+    
+    
 <p>
 <ul>
-  <li><a href="@{Rezervacije.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Rezervacije.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
-  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
-  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
-  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
-  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
-  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
-  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Rezervacije.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="#" id = "remove">Otkazite rezervaciju<img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+
+  <li><a href="@{Rezervacije.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  
 </ul>
 </p>
 
-<div class = "container-fluid">
-<h1>Rezervacije</h1>
+#{set 'action'}	
+		  
+		  #{if mode == 'add'}
+       		 @{Rezervacije.create()}
+   		  #{/if}
+    	    
+#{/set}
+    
+    
+    
+    <h1>Raspored stolova u ${restoran.nazivRestorana}</h1>
+    
+    </br>
+    </br>
+        
+		<h2>Rezervisite sto</h2>
+		
+        <table border="0" align="center">
+            <script language="javascript" type="text/javascript">
+            
+            	var dimX = ${restoran.dimX};
+				var dimY = ${restoran.dimY};
+				var brojtolova= ${brojStolova};
+				var brojac=0;
+				var idd=1;
+				var sto = ${stolovizaprikaz.nazivStola};
+				var rez = ${rezervacijeZaPrikaz.sto.nazivStola};
+				
+				
+                for (var i = 1; i <= dimX; i++) 
+                {
+                	document.write("<tr>");
+                	
+                	for(var j=1 ; j<=dimY; j++){
+                		
+                		for(var k=0 ; k<rez.length; k++){	
+                			if(sto[brojac] == rez[k] && brojac<brojtolova){
+		    					document.write("<td><button "  + " class=button2 onclick=reply_click(this.id)>" + sto[brojac] + "</button></td>"); 
+		    					brojac++;
+		    					idd++;
+                			}
+                		}
+                		
+                		if(brojac<brojtolova){
+	                		document.write("<td><button id=" + idd + " class=button onclick=reply_click(this.id)>" + sto[brojac] + "</button></td>"); 
+	    					brojac++;
+	    					idd++;
+                		}
+                	}
+                	
+                	document.write("</tr>");
+                }
+               
 
-<table class="TabelaForme">
-	<tr class = "header">
-	   <th>Datum rezervacije</th> 
-	   <th>Trajanje rezervacije</th>
-	   <th>Korisnik</th> 
-	   <th>Restoran</th>
-	</tr>
+            </script>            
+        </table>
+
+<script>
+    function reply_click(clicked_id)
+    {
+    	document.getElementById(clicked_id).style.background='#ff0000';
+    	document.getElementById("brojStola").value = clicked_id;
+        //alert(clicked_id);
+    }
+</script>
+  
+  
+    
+    
+<div class = "panel">
+<p>
 	
-#{list items:listaRezervacijaZaPrikaz, as:'rezervacija'}
-	<tr #{if rezervacija.id == selectedIndex} class = "highlighted" #{/if}>
-		<td class = "datumVreme">${rezervacija.datumVreme}</td>
-		<td class = "trajanje">${rezervacija.trajanje}</td>
-		<td value="${rezervacija.korisnik.id}" class = "korisnik">${rezervacija.korisnik.ime}</td>
-		<td value="${rezervacija.restoran.id}" class = "restoran">${rezervacija.restoran.nazivRestorana}</td>
-		<td style = "visibility: hidden; max-width: 0px" class = "id">${rezervacija.id}</td>
-	</tr>
-#{/list}
-</table>
-
-</br>
+	#{set 'action'}
+    #{if mode == 'add'}
+        @{Rezervacije.create()}
+    #{/if}
+  	#{/set} 
+	
+		<form action = "${action}">
+					
+				<p>
+				#{field 'broj'}
+					<label for = "${field.id}">Broj stola</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "brojStola" readonly/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'datumVreme'}
+					<label for = "${field.id}">Datum i vreme</label>
+					<input type = "date" name = "${field.name}" id = "${field.id}"/>
+					<!-- bio je type="date"  -->
+				#{/}
+				</p>
+				<p>
+				#{field 'trajanje'}
+					<label for = "${field.id}">Trajanje</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<!-- bio je type="date"  -->
+				#{/}
+				</p>>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+				</div>			
+				
+		</form>
+</p>
 </div>
+    
+    
+     
+</body>
+</html>
+

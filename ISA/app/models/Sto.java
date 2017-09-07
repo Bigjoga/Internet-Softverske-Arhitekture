@@ -45,4 +45,8 @@ public class Sto extends Model {
 		this.brojMesta = brojMesta;
 		this.restoran = restoran;
 	}	
+	
+	public Sto() {
+		
+	}	
 }

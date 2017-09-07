@@ -74,8 +74,7 @@ public class Restorani extends Controller{
 	    show("rezervacija", null);*/
 				
 		session.put("idRestorana", restoran.id);
-		System.out.println("NAZVI RESTORANA JE -------------> " + session.get("idRestorana"));
-		render(restoran);
+		redirect("http://localhost:9000/Rezervacije/show");
 	}
 	
 	public static void rezervisiSto( Restoran restoran){
