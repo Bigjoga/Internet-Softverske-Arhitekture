@@ -73,7 +73,7 @@ button { margin: -20px -50px;
 
 </br>
 <div align=center>
-      <a href="http://localhost:9000/Restorani/show" id = "korisnici">Rezervazija termina u restoranu
+      <a href="http://localhost:9000/Restorani/show" id = "korisnici" onclick=reply_click(this.id)>Rezervazija termina u restoranu
 </div>
 </br>
 
@@ -101,5 +101,12 @@ button { margin: -20px -50px;
 </div>
 </br>
 
+<script type="text/javascript">
+
+function reply_click(clicked_id)
+{
+	sessionStorage.setItem("home",document.URL);
+}
+</script>
 </html>
 

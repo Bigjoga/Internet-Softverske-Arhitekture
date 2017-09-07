@@ -1,5 +1,5 @@
 #{extends 'standardForm.html' /}
-#{set title:'Korisnici'/}
+#{set title:'Evedincija zaposlenih'/}
 
 #{set 'prikazani'}
 	idZaPrikaz
@@ -33,6 +33,19 @@ $(document).ready(function(){
 	});
 });	
 
+function remove(id)
+{
+	var answer = confirm("Da li ste sigurni da zelite da obrisete radnika?");
+	if(answer)
+		{
+			$(location).attr('href','/Korisnici/delete?id='+id);
+		}
+	else
+		{
+		
+		}
+	
+}
 
 function sync(item){
 	adresa = item.find(".adresa").html()
@@ -60,17 +73,18 @@ function nextform(id)
 
 <p>
 <ul>
-  <li><a href="@{Korisnici.show("search",null)}" id = "search">Filter<img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Korisnici.show("edit",null)}" id = "refresh">Edit<img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{Korisnici.showZaposleni("search",null)}" id = "search">Filter<img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Korisnici.showZaposleni("edit",null)}" id = "refresh">Edit<img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Korisnici.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{Korisnici.showZaposleni("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="#" id = "nextform">Prijatelji<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{Korisnici.showZaposleni("izborzZaposlenog",null)}" id = "izborzZaposlenog">izbor zaposlenog<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
@@ -79,7 +93,7 @@ function nextform(id)
 
 
 <div class = "container-fluid">
-<h1>Korisnici</h1>
+<h1>Evedincija zaposlenih</h1>
 
 <table class="TabelaForme">
 	<tr class = "header">
@@ -110,7 +124,10 @@ function nextform(id)
         @{Korisnici.create()}
     #{/if}
     #{elseif mode == 'edit'}
-        @{Korisnici.edit()}
+        @{Korisnici.editZaposlenih()}
+    #{/elseif}
+    #{elseif mode == 'izborzZaposlenog'}
+        @{Korisnici.izborzZaposlenog()}
     #{/elseif}
   	#{else}
         @{Korisnici.filter()}
@@ -161,7 +178,7 @@ function nextform(id)
 				#{field 'restoran'}
 					<label for = "${field.id}">Restoran</label>
 					<select name = "${field.name}" id = "${field.id}" />
-					#{list items:restorani, as:'restoran'}
+					#{list items:rest, as:'restoran'}
 					<option value = "${restoran.id}">${restoran.nazivRestorana}</option>
 					#{/list}
 					</select>
@@ -175,6 +192,26 @@ function nextform(id)
 					 </script>
 				#{/}
 				</p>
+				
+				<p>
+				#{field 'uloga'}
+					<label for = "${field.id}">Uloga</label>
+					<select name = "${field.name}" id = "${field.id}" />
+					#{list items:ulogezaprikaz, as:'ul'}
+					<option value = "${ul.id}">${ul.nazivUloge}</option>
+					#{/list}
+					</select>
+					
+					 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#drzaveModal">...	</button>
+					 
+					 <script>
+					 	//alert(zaPrikazivanjeStoTreba);
+					 	//document.getElementById('${field.id}').selectedIndex=zaPrikazivanjeStoTreba;
+					 	document.getElementById('${field.id}').selectedIndex=GetURLParameter('id')-1;
+					 </script>
+				#{/}
+				</p>
+				
 				<div id = "formActions">
 					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
 					<a href = "#" style="margin-left:1em">Rollback</a>
@@ -214,7 +251,3 @@ function nextform(id)
     </div>
    </div>
 </div>
-
-
-
-

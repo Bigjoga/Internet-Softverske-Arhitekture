@@ -30,6 +30,9 @@ public class Logovanje extends Controller{
 				session.put("sifra", kor.sifra);
 				session.put("ime", kor.ime);
 				session.put("uloga", kor.uloga.nazivUloge);
+				String homePage = request.url;
+				session.put("home", homePage);
+				System.out.println("HOME PAGE JE -----> " + session.get("home"));
 				
 				if(kor.restoran!=null){
 					session.put("restoran", kor.restoran.nazivRestorana);

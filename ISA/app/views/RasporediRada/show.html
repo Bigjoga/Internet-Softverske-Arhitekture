@@ -33,8 +33,6 @@ function sync(item){
   <li><a  id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a  id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a  id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{RasporediRada.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
 </p>
@@ -46,7 +44,7 @@ function sync(item){
 	<tr class = "header">
 	   <th>Datum</th> 
 	   <th>Smena</th>
-	   <th>Korisnik</th>
+	   <th>Radnik</th>
 	</tr>
 #{list items:rasporedZaPrikaz, as:'raspored'}
 	<tr #{if raspored.id == selectedIndex} class = "highlighted trww" #{/if} class="trww">

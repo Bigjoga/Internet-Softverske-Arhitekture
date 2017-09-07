@@ -17,17 +17,6 @@ public class Registracija extends Controller{
 	
 	public static void registracija(Korisnik korisnik, Long Restoran)
 	{
-		/*
-		validation.required(korisnik.adresa);
-		validation.required(korisnik.email);
-		validation.required(korisnik.ime);
-		validation.required(korisnik.sifra);
-		validation.maxSize(korisnik.adresa, 50);
-		validation.maxSize(korisnik.email, 50);
-		validation.maxSize(korisnik.ime, 50);
-		validation.maxSize(korisnik.sifra, 50);
-		*/
-		
 		String sifra=korisnik.sifra;
 		System.out.println(sifra);
 		
@@ -59,10 +48,5 @@ public class Registracija extends Controller{
 			kor.save();
 			redirect("http://localhost:9000/logovanje/show");
 		}
-		
-		
-		
-		
-	}
-	
+	}	
 }
