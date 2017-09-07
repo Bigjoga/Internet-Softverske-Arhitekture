@@ -23,6 +23,20 @@ public class Restorani extends Controller{
 		render(restorani,mode,selectedIndex);
 	}
 	
+	public static void restoraniMenadzerSistema(String mode, Long selectedIndex)
+	{
+		if(session.isEmpty())
+		{
+			redirect("http://localhost:9000/logovanje/show");
+		}
+		
+		List<Restoran> restorani = Restoran.findAll();
+	
+		if(mode == null || mode.equals(""))
+			mode = "edit";
+		render(restorani,mode,selectedIndex);
+	}
+	
 	public static void izborRestorana(Restoran restoran)
 	{ 		
 		session.put("restoran", restoran.nazivRestorana);
@@ -51,34 +65,17 @@ public class Restorani extends Controller{
 		show("add", restoran.id);
 	}
 	
-	public static void rezervacija(Restoran restoran, Korisnik korisnik, String mode)
-	{
-		/*
-		java.sql.Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-	    Date datum = java.sql.Date.valueOf(timeNow.toString());
-	    
-	    List<Korisnik> korisnici = Korisnik.findAll();
-	    List<Korisnik> korZaPrikaz = new ArrayList<>();
-	    for(int i=0; i<korisnici.size(); i++)
-		{
-	    	if(korisnici.get(i).email.equals(session.get("email")))
-			{
-	    		korZaPrikaz.add(korisnici.get(i));
-			}
-		}
-	    korisnik = korZaPrikaz.get(0);
-	    //korisnik = Logovanje.session.get("ime");
-	    
-	    Rezervacija rezervacija = new Rezervacija(datum, 1, korisnik, restoran);
-	    rezervacija.save();
-	    show("rezervacija", null);*/
-				
-		session.put("idRestorana", restoran.id);
-		redirect("http://localhost:9000/Rezervacije/show");
+	public static void editMenadzerSistema(Restoran restoran)
+	{ 
+		restoran.ukupanBrojOcena+=1;
+		restoran.save();
+		restoraniMenadzerSistema("add", restoran.id);
 	}
 	
-	public static void rezervisiSto( Restoran restoran){
-		
+	public static void rezervacija(Restoran restoran, Korisnik korisnik, String mode)
+	{
+		session.put("idRestorana", restoran.id);
+		redirect("http://localhost:9000/Rezervacije/show");
 	}
 	
 	public static void filter(Restoran restoran)

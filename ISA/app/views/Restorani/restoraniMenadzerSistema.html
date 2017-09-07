@@ -1,0 +1,146 @@
+#{extends 'standardForm.html' /}
+#{set title:'Restorani'/}
+
+<script>
+
+function sync(item){
+	adresa = item.find(".adresa").html()
+    dimX = item.find(".dimX").html()
+    dimY = item.find(".dimY").html()
+    nazivRestorana = item.find(".nazivRestorana").html()
+    opisRestorana = item.find(".opisRestorana").html()
+    prosecnaOcena = item.find(".prosecnaOcena").html()
+    ukupanBrojOcena = item.find(".ukupanBrojOcena").html()
+    id = item.find(".id").html()
+    $("#restoran_adresa").val(adresa);
+    $("#restoran_dimX").val(dimX);
+    $("#restoran_dimY").val(dimY);
+    $("#restoran_nazivRestorana").val(nazivRestorana);
+    $("#restoran_opisRestorana").val(opisRestorana);
+    $("#restoran_prosecnaOcena").val(prosecnaOcena);
+    $("#restoran_ukupanBrojOcena").val(ukupanBrojOcena);
+    $("#restoran_id").val(id);
+}
+
+</script>
+
+
+
+<p>
+<ul>
+  <li><a href="@{Restorani.restoraniMenadzerSistema("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
+  <li><a href="@{Restorani.restoraniMenadzerSistema("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/>Edit</a></li>
+  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
+  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Restorani.restoraniMenadzerSistema("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+
+
+<div class = "container-fluid">
+<h1>Restorani menadzera sistema</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Adresa restorana</th> 
+	   <th>Dimenzija x restorana</th>
+	   <th>Dimenzija y restorana</th> 
+	   <th>Naziv restorana</th>
+	   <th>Opis restorana</th> 
+	   <th>Prosecna ocena restorana</th>
+	   <th>Ukupan broj ocena restorana</th>
+	</tr>
+	
+#{list items:restorani, as:'restoran'}
+	<tr #{if restoran.id == selectedIndex} class = "highlighted" #{/if}>
+		<td class = "adresa">${restoran.adresa}</td>
+		<td class = "dimX">${restoran.dimX}</td>
+		<td class = "dimY">${restoran.dimY}</td>
+		<td class = "nazivRestorana">${restoran.nazivRestorana}</td>
+		<td class = "opisRestorana">${restoran.opisRestorana}</td>
+		<td class = "prosecnaOcena">${restoran.prosecnaOcena}</td>
+		<td class = "ukupanBrojOcena">${restoran.ukupanBrojOcena}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${restoran.id}</td>
+	</tr>
+#{/list}
+</table>
+
+<div class = "panel">
+	<p>
+	
+		#{set 'action'}
+		  #{if mode == 'edit'}
+		    @{Restorani.editMenadzerSistema()}
+		  #{/if}
+		#{/set}
+
+</br>
+		<form action=${action} method="post">
+		
+				#{field 'restoran.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				
+				<p>
+				#{field 'restoran.adresa'}
+					<label for = "${field.id}">Adresa</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				#{field 'restoran.dimX'}
+					<label for = "${field.id}">Dimenzija x</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span>#{error field.name /}</span>
+				#{/}
+				</p>
+				<p>
+				#{field 'restoran.dimY'}
+					<label for = "${field.id}">Dimenzija Y</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				#{field 'restoran.nazivRestorana'}
+					<label for = "${field.id}">Naziv restorana</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span>#{error field.name /}</span>
+				#{/}
+				</p>
+				<p>
+				#{field 'restoran.opisRestorana'}
+					<label for = "${field.id}">Opis restorana</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>  
+				#{field 'restoran.prosecnaOcena'}
+					<label for = "${field.id}">Prosecna ocena</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span>#{error field.name /}</span>
+				#{/}
+				</p>
+				<p>  
+				#{field 'restoran.ukupanBrojOcena'}
+					<label for = "${field.id}">Ukupna ocena restorana</label>
+					<input type = "text" name = "${field.name}" id = "${field.id}"/>
+					<span>#{error field.name /}</span>
+				#{/}
+				</p>
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				 
+		</form>
+	</p>
+</div>	
+</div>
