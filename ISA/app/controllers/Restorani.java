@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Korisnik;
@@ -31,7 +32,7 @@ public class Restorani extends Controller{
 		}
 		
 		List<Restoran> restorani = Restoran.findAll();
-	
+		
 		if(mode == null || mode.equals(""))
 			mode = "edit";
 		render(restorani,mode,selectedIndex);
@@ -65,6 +66,20 @@ public class Restorani extends Controller{
 		show("add", restoran.id);
 	}
 	
+	public static void create(Restoran restoran)
+	{
+		Restoran rest = new Restoran(restoran.nazivRestorana, 
+									 restoran.opisRestorana, 
+									 restoran.dimX, 
+									 restoran.dimY, 
+									 restoran.prosecnaOcena, 
+									 restoran.ukupanBrojOcena, 
+									 restoran.adresa);
+		rest.save();
+		restoraniMenadzerSistema("add", rest.id);
+		
+	}
+	
 	public static void editMenadzerSistema(Restoran restoran)
 	{ 
 		restoran.ukupanBrojOcena+=1;
@@ -76,6 +91,20 @@ public class Restorani extends Controller{
 	{
 		session.put("idRestorana", restoran.id);
 		redirect("http://localhost:9000/Rezervacije/show");
+	}
+	
+	public static void delete(Long id)
+	{
+		Restoran rest = Restoran.findById(id);
+		List<Korisnik> korisnici= Korisnik.findAll(); 
+		for(int i=0 ; i< korisnici.size(); i++ ){
+			if(korisnici.get(i).restoran == rest){
+				korisnici.get(i).delete();
+			}
+		}
+		
+		rest.delete();
+		restoraniMenadzerSistema("edit", rest.id-1);
 	}
 	
 	public static void filter(Restoran restoran)

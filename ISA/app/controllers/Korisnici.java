@@ -74,12 +74,41 @@ public class Korisnici extends Controller{
 				ulogezaprikaz.add(uloge.get(i));
 			}
 		}
+		if(listaKorisnikaZaPrikaz==null || listaKorisnikaZaPrikaz.isEmpty()==true)
+		{
+			System.out.println("LKZP je NULL:");
+		}
+		else
+		{
+			System.out.println("ZAPOSLENI JE -----> " + listaKorisnikaZaPrikaz.get(0));
+			System.out.println(session.get("email"));
+			System.out.println(korisnici.get(0).uloga.toString());
+			
+			render(rest,ulogezaprikaz,listaKorisnikaZaPrikaz,mode,selectedIndex);
+		}
 		
-		System.out.println("ZAPOSLENI JE -----> " + listaKorisnikaZaPrikaz.get(0));
-		System.out.println(session.get("email"));
-		System.out.println(korisnici.get(0).uloga.toString());
+			
+	}
+	
+	public static void showMenadzeraZaRestoran(String mode, Long selectedIndex)
+	{
+		List<Korisnik> korisnici = Korisnik.findAll();
+		List<Korisnik> korisniciZaPrikaz = new ArrayList<>();
 		
-		render(rest,ulogezaprikaz,listaKorisnikaZaPrikaz,mode,selectedIndex);	
+		for(int i=0; i<korisnici.size(); i++)
+		{
+			if(korisnici.get(i).uloga.nazivUloge.equals("Menadzer"))
+			{
+				korisniciZaPrikaz.add(korisnici.get(i));
+			}
+		}
+		
+		List<Restoran> restorani = Restoran.findAll();
+		
+		if(mode == null || mode.equals(""))
+			mode = "edit";
+		
+		render(restorani,korisniciZaPrikaz,mode,selectedIndex);
 	}
 	
 	public static void izborzZaposlenog(Korisnik korisnik)
@@ -116,12 +145,40 @@ public class Korisnici extends Controller{
 		showZaposleni("add", kor.id);
 	}
 	
+	public static void createZaMenadzeraSistema(Korisnik korisnik, Long restoran, Long uloga)
+	{	
+		UlogaKorisnika ulog = new UlogaKorisnika();
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
+		
+		for(int l=0; l<uloge.size(); l++)
+		{
+			if(uloge.get(l).nazivUloge.equals("Menadzer"))
+			{
+				ulog = uloge.get(l);
+			}
+		}
+		
+		Restoran rest= Restoran.findById(restoran);
+		
+		Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulog, rest);
+		kor.save();
+		showMenadzeraZaRestoran("add", kor.id);
+	}
+	
 	public static void edit(Korisnik korisnik, Long restoran)
 	{
 		Restoran rest = Restoran.findById(restoran);
 		korisnik.restoran = rest;
 		korisnik.save();
 		show("edit",korisnik.id);
+	}
+	
+	public static void editZaMenadzeraSistema(Korisnik korisnik, Long restoran)
+	{
+		Restoran rest = Restoran.findById(restoran);
+		korisnik.restoran = rest;
+		korisnik.save();
+		showMenadzeraZaRestoran("edit",korisnik.id);
 	}
 	
 	public static void editZaposlenih(Korisnik korisnik, Long restoran, Long uloga)
@@ -142,5 +199,10 @@ public class Korisnici extends Controller{
 		renderTemplate("Korisnici/show.html", korisnici,mode);
 	}
 	
-	
+	public static void deleteZaMenadzeraSistema(Long id)
+	{
+		Korisnik kor = Korisnik.findById(id);
+		kor.delete();
+		showMenadzeraZaRestoran("edit", kor.id-1);
+	}
 }

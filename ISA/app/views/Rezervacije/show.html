@@ -1,3 +1,5 @@
+
+
 <html>
 <head>
 <title>Rezervacija stola</title>
@@ -24,6 +26,7 @@
 <ul>
 
   <li><a href="@{Rezervacije.show("add")}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
   
 </ul>
 </p>
@@ -57,6 +60,41 @@
 				var rez = ${rezervacijeZaPrikaz.sto.nazivStola};
 				
 				
+				for(var i=0; i<dimX; i++)
+					{
+						document.write("<tr>");
+						for(var j=0; j<dimY; j++)
+							{
+								
+								var naslo = false;
+								for(var xxx = 0; xxx<rez.length; xxx++)
+									{
+										
+										if(rez[xxx] == sto[brojac])
+											{
+											
+												document.write("<td><button "  + " class=button2 onclick=reply_click(this.id)>" + sto[brojac] + "</button></td>");
+												naslo=true;
+												break;
+												
+											}
+									
+									}
+								if(naslo==false)
+									{
+										document.write("<td><button id=" + (brojac+1) + " class=button onclick=reply_click(this.id)>" + sto[brojac] + "</button></td>");
+									}
+								
+								brojac++;
+							
+							}
+						document.write("</tr>");
+					
+					}
+				
+				console.log("IZASLO IZ SMECA");
+				
+				/*
                 for (var i = 1; i <= dimX; i++) 
                 {
                 	document.write("<tr>");
@@ -80,6 +118,7 @@
                 	
                 	document.write("</tr>");
                 }
+				*/
                
 
             </script>            

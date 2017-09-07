@@ -70,6 +70,21 @@ public class Restoran extends Model {
 		this.menadzeri = menadzeri;
 	}
 
+	public Restoran(String nazivRestorana, String opisRestorana, Integer dimX,
+			Integer dimY, Double prosecnaOcena, Integer ukupanBrojOcena,
+			String adresa) {
+		super();
+		this.nazivRestorana = nazivRestorana;
+		this.opisRestorana = opisRestorana;
+		this.dimX = dimX;
+		this.dimY = dimY;
+		this.prosecnaOcena = prosecnaOcena;
+		this.ukupanBrojOcena = ukupanBrojOcena;
+		this.adresa = adresa;
+	}
+
+
+
 	public Restoran() {
 		super();
 	}
