@@ -167,9 +167,8 @@ public class Korisnici extends Controller{
 	
 	public static void edit(Korisnik korisnik, Long restoran)
 	{
-		Restoran rest = Restoran.findById(restoran);
-		korisnik.restoran = rest;
 		korisnik.save();
+		session.put("email", korisnik.email);
 		show("edit",korisnik.id);
 	}
 	

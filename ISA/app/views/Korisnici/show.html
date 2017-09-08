@@ -84,21 +84,20 @@ function nextform(id)
 <table class="TabelaForme">
 	<tr class = "header">
 	   <th>Adresa korisnika</th> 
-	   <th>Broj poseta</th>
+	   
 	   <th>Email korisnika</th> 
 	   <th>Ime korisnika</th>
 	   <th>Sifra korisnika</th> 
-	   <th>Restoran</th>
-	   <th>Uloga korisnika</th>
+	   <th>Uloga</th>
+	   
 	</tr>
 #{list items:listaKorisnikaZaPrikaz, as:'korisnik'}
 	<tr #{if korisnik.id == selectedIndex} class = "highlighted" #{/if}>
 		<td class = "adresa">${korisnik.adresa}</td>
-		<td class = "brojPoseta">${korisnik.brojPoseta}</td>
+		
 		<td class = "email">${korisnik.email}</td>
 		<td class = "ime">${korisnik.ime}</td>
 		<td class = "sifra">${korisnik.sifra}</td>
-		<td value="${korisnik.restoran.id}" class = "restoran">${korisnik.restoran.nazivRestorana}</td>
 		<td value="${korisnik.uloga.id}" class = "ulogaKorisnika">${korisnik.uloga.nazivUloge}</td>
 		<td style = "visibility: hidden; max-width: 0px" class = "id">${korisnik.id}</td>
 	</tr>
@@ -133,12 +132,7 @@ function nextform(id)
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
-				<p>
-				#{field 'korisnik.brojPoseta'}
-					<label for = "${field.id}">Broj poseta</label>
-					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
-				#{/}
-				</p>
+				
 				<p>
 				#{field 'korisnik.email'}
 					<label for = "${field.id}">Email</label>
@@ -157,24 +151,9 @@ function nextform(id)
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
-				<p>
-				#{field 'restoran'}
-					<label for = "${field.id}">Restoran</label>
-					<select name = "${field.name}" id = "${field.id}" />
-					#{list items:restorani, as:'restoran'}
-					<option value = "${restoran.id}">${restoran.nazivRestorana}</option>
-					#{/list}
-					</select>
-					
-					 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#drzaveModal">...	</button>
-					 
-					 <script>
-					 	//alert(zaPrikazivanjeStoTreba);
-					 	//document.getElementById('${field.id}').selectedIndex=zaPrikazivanjeStoTreba;
-					 	document.getElementById('${field.id}').selectedIndex=GetURLParameter('id')-1;
-					 </script>
-				#{/}
-				</p>
+				
+				
+				
 				<div id = "formActions">
 					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
 					<a href = "#" style="margin-left:1em">Rollback</a>
