@@ -20,18 +20,6 @@ function GetURLParameter(sParam)
 	        }
 	    }
 	}
-	
-$(document).ready(function(){
-	var zaPrikazivanjeStoTreba = 0;
-	//alert(GetURLParameter('id'));
-	//zaPrikazivanjeStoTreba = GetURLParameter('id');
-	//alert(zaPrikazivanjeStoTreba)
-	$("#drzavaPickup").click(function(){
-		id = $(".highlighted").find(".dr_id").html();
-		$("select").val(id);
-		$('#drzaveModal').modal('toggle');
-	});
-});	
 
 function remove(id)
 {
@@ -84,7 +72,7 @@ function nextform(id)
   <li><a href="@{Korisnici.showZaposleni("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
   <li><a href="#" id = "nextform">Prijatelji<img src="@{'/public/images/nextform.gif'}"/></a></li>
-  <li><a href="@{Korisnici.showZaposleni("izborzZaposlenog",null)}" id = "izborzZaposlenog">izbor zaposlenog<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="@{Korisnici.showZaposleni("izborzZaposlenog",null)}" id = "izborzZaposlenog">Izbor zaposlenog<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
@@ -182,14 +170,6 @@ function nextform(id)
 					<option value = "${restoran.id}">${restoran.nazivRestorana}</option>
 					#{/list}
 					</select>
-					
-					 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#drzaveModal">...	</button>
-					 
-					 <script>
-					 	//alert(zaPrikazivanjeStoTreba);
-					 	//document.getElementById('${field.id}').selectedIndex=zaPrikazivanjeStoTreba;
-					 	document.getElementById('${field.id}').selectedIndex=GetURLParameter('id')-1;
-					 </script>
 				#{/}
 				</p>
 				
@@ -220,34 +200,4 @@ function nextform(id)
 		</form>
 	</p>
 </div>
-
-<!-- Modal -->
-  <div class="modal fade" id="drzaveModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-      <div class="modal-header">
-      	Restorani koje se nalaze u sistemu:
-      </div>
-      <div class="modal-body">
-	    <table style = "padding:2em">
-		<tr class = "header">
-		   <th>Naziv restorana</th> 
-		   <th>Opis restorana</th>
-		</tr>
-		#{list items:restorani, as:'restoran'}
-		<tr>
-			<td class = "nazivRestorana">${restoran.nazivRestorana}</td>
-			<td class = "opisRestorana">${restoran.opisRestorana}</td>
-			<td style = "visibility: hidden; max-width: 0px" class = "dr_id">${restoran.id}</td>
-		</tr>
-		#{/list}
-		</table>
-		<div class="modal-footer">
-			<input id = "drzavaPickup" type = "button" value = "izbor"/>
-		</div>
-		</div>
-      </div>
-    </div>
-   </div>
 </div>
