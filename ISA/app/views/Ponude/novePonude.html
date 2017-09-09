@@ -1,5 +1,5 @@
 #{extends 'standardForm.html' /}
-#{set title:'Ponude'/}
+#{set title:'Nove ponude'/}
 
 <script>
 
@@ -58,16 +58,12 @@ function sync(item){
 
 <p>
 <ul>
-  <li><a href="@{Ponude.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Ponude.show("edit",null)}" id = "refresh">Izmena<img src="@{'/public/images/refresh.gif'}"/></a></li>
-  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
-  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Ponude.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
-  <li><a href="@{Ponude.show("posalji",null)}" id = "add"> posalji ponudu<img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{Ponude.novePonude("prihvati",null)}" id = "add"> prihvati ponudu</a></li>
+  <li><a href="@{Ponude.novePonude("odbij",null)}" id = "no"> odbij ponudu</a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
@@ -106,6 +102,12 @@ function sync(item){
 		  #{if mode == 'edit'}
 		    @{Ponude.edit()}
 		  #{/if}
+		  #{if mode == 'prihvati'}
+		    @{Ponude.prihvati()}
+		  #{/if}
+		  #{if mode == 'odbij'}
+		    @{Ponude.odbij()}
+		  #{/if}
 #{/set}
 
 
@@ -126,7 +128,7 @@ function sync(item){
 				
 				<p>
 				#{field 'stavkaPonude'}
-					<label for = "${field.id}">Naziv proizvoda</label>
+					<label for = "${field.id}">Stavka ponude</label>
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
@@ -152,6 +154,12 @@ function sync(item){
 				#{/}
 				</p>
 				
+				<p>
+				#{field 'prihvaceno'}
+					<label for = "${field.id}">Prihvaceno</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
 				<p>
 				
 				<div id = "formActions">

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Korisnik;
+import models.Ponuda;
 import play.mvc.Controller;
 
 public class Logovanje extends Controller{
@@ -49,6 +50,20 @@ public class Logovanje extends Controller{
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
+					List<Ponuda> ponude = Ponuda.findAll();
+					List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
+					for(int i=0; i<ponude.size(); i++)
+					{
+						if(ponude.get(i).restoran.nazivRestorana.equals(session.get("restoran"))) 
+						{			
+							listaPonudaZaPrikaz.add(ponude.get(i));
+						}
+					}
+					Integer brojPonuda2 = listaPonudaZaPrikaz.size();
+					List<Integer> brojPonuda = new ArrayList<>();
+					brojPonuda.add(brojPonuda2);
+					
+					
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
 					kor.brojPoseta+=1;

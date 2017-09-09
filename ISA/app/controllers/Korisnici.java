@@ -9,6 +9,7 @@ import com.sun.prism.RenderTarget;
 
 import models.Jelovnik;
 import models.Korisnik;
+import models.Ponuda;
 import models.Restoran;
 import models.UlogaKorisnika;
 import play.mvc.Controller;
