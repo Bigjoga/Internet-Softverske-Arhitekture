@@ -141,9 +141,15 @@ public class Korisnici extends Controller{
 		Restoran rest= Restoran.findById(restoran);
 		UlogaKorisnika ulo=  UlogaKorisnika.findById(uloga);
 		
-		Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, rest);
-		kor.save();
-		showZaposleni("add", kor.id);
+		if (ulo.nazivUloge.equals("Ponudjac")) {
+			Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, null);
+			kor.save();
+			showZaposleni("add", kor.id);
+		} else {
+			Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, rest);
+			kor.save();
+			showZaposleni("add", kor.id);
+		}
 	}
 	
 	public static void createZaMenadzeraSistema(Korisnik korisnik, Long restoran, Long uloga)

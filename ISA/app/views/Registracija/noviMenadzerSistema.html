@@ -1,5 +1,5 @@
 #{extends 'standardForm.html' /}
-#{set title:'Novi menadzer restorana'/}
+#{set title:'Novi menadzer sistema'/}
 
 #{set 'prikazani'}
 	idZaPrikaz
@@ -68,17 +68,13 @@ function remove(id)
 
 <p>
 <ul>
-  <li><a href="@{Korisnici.showMenadzeraZaRestoran("search",null)}" id = "search">Filter<img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Korisnici.showMenadzeraZaRestoran("edit",null)}" id = "refresh">Edit<img src="@{'/public/images/refresh.gif'}"/></a></li>
-  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
-  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
+  <li><a href="@{Registracija.noviMenadzerSistema("search",null)}" id = "search">Filter<img src="@{'/public/images/search.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Korisnici.showMenadzeraZaRestoran("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{Registracija.noviMenadzerSistema("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="#" id = "remove"><img src="@{'/public/images/remove.gif'}"/></a></li>
-  <li><a href="#" id = "nextform">Prijatelji<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
@@ -87,7 +83,7 @@ function remove(id)
 
 
 <div class = "container-fluid">
-<h1>Korisnici</h1>
+<h1>Menadzeri sistema</h1>
 
 <table class="TabelaForme">
 	<tr class = "header">
@@ -96,8 +92,6 @@ function remove(id)
 	   <th>Email korisnika</th> 
 	   <th>Ime korisnika</th>
 	   <th>Sifra korisnika</th> 
-	   <th>Restoran</th>
-	   <th>Uloga korisnika</th>
 	</tr>
 #{list items:korisniciZaPrikaz, as:'korisnik'}
 	<tr #{if korisnik.id == selectedIndex} class = "highlighted" #{/if}>
@@ -106,8 +100,6 @@ function remove(id)
 		<td class = "email">${korisnik.email}</td>
 		<td class = "ime">${korisnik.ime}</td>
 		<td class = "sifra">${korisnik.sifra}</td>
-		<td value="${korisnik.restoran.id}" class = "restoran">${korisnik.restoran.nazivRestorana}</td>
-		<td value="${korisnik.uloga.id}" class = "ulogaKorisnika">${korisnik.uloga.nazivUloge}</td>
 		<td style = "visibility: hidden; max-width: 0px" class = "id">${korisnik.id}</td>
 	</tr>
 #{/list}
@@ -115,14 +107,11 @@ function remove(id)
 
 #{set 'action'}
     #{if mode == 'add'}
-        @{Korisnici.createZaMenadzeraSistema()}
+        @{Registracija.kreirajMenadzeraSistema()}
     #{/if}
-    #{elseif mode == 'edit'}
-        @{Korisnici.editZaMenadzeraSistema()}
+    #{elseif mode == 'remove'}
+        @{Registracija.deleteMenadzeraSistema()}
     #{/elseif}
-  	#{else}
-        @{Korisnici.filter()}
-    #{/else}
   #{/set}
 
   
@@ -163,16 +152,6 @@ function remove(id)
 				#{field 'korisnik.sifra'}
 					<label for = "${field.id}">Sifra</label>
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
-				#{/}
-				</p>
-				<p>
-				#{field 'restoran'}
-					<label for = "${field.id}">Restoran</label>
-					<select name = "${field.name}" id = "${field.id}" />
-					#{list items:restorani, as:'restoran'}
-					<option value = "${restoran.id}">${restoran.nazivRestorana}</option>
-					#{/list}
-					</select>
 				#{/}
 				</p>
 				<div id = "formActions">
