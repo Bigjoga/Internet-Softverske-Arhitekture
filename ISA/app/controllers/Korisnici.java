@@ -174,8 +174,18 @@ public class Korisnici extends Controller{
 	
 	public static void editZaMenadzeraSistema(Korisnik korisnik, Long restoran)
 	{
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
+		UlogaKorisnika ulo=new UlogaKorisnika();
+		for(int i=0 ;i<uloge.size();i++){
+			if(uloge.get(i).nazivUloge.equals("Menadzer"))
+				ulo=uloge.get(i);
+		}
+		korisnik.uloga = ulo;
+//		UlogaKorisnika ulkor = new UlogaKorisnika();
+//		ulkor.nazivUloge = "Menadzer";
 		Restoran rest = Restoran.findById(restoran);
 		korisnik.restoran = rest;
+//		korisnik.uloga = ulkor;
 		korisnik.save();
 		showMenadzeraZaRestoran("edit",korisnik.id);
 	}

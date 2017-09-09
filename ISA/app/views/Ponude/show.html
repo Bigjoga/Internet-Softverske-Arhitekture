@@ -33,14 +33,16 @@ $(document).ready(function(){
 function sync(item){
 	
     restoran = item.find(".restoran").html()
-	stavkaJelovnika = item.find(".stavkaJlovnika").html()
+	stavkaPonude = item.find(".stavkaPonude").html()
+	prihvaceno = item.find(".prihvaceno").html()
     id = item.find(".id").html()
     
     
     
     $("#restoran").val(restoran);
-    $("#stavkaJelovnika").val(stavkaJelovnika);
-    $("#porudzbina_id").val(id);
+    $("#stavkaPonude").val(stavkaPonude);
+    $("#prihvaceno").val(prihvaceno);
+    $("#ponuda_id").val(id);
 }
 
 </script>
@@ -51,7 +53,7 @@ function sync(item){
 <p>
 <ul>
   <li><a href="@{Ponude.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
-  <li><a href="@{Ponude.show("edit",null)}" id = "refresh"><img src="@{'/public/images/refresh.gif'}"/></a></li>
+  <li><a href="@{Ponude.show("edit",null)}" id = "refresh">Izmena<img src="@{'/public/images/refresh.gif'}"/></a></li>
   <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
   <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
@@ -72,12 +74,14 @@ function sync(item){
 	<tr class = "header">
 	   <th>Restoran</th> 
 	   <th>Stavka ponude</th>
+	   <th>Prihvaceno</th>
 	</tr>
 	
 #{list items:listaPonudaZaPrikaz, as:'ponuda'}
 	<tr #{if ponuda.id == selectedIndex} class = "highlighted" #{/if}>
 		<td value="${ponuda.restoran.id}" class = "restoran">${ponuda.restoran.nazivRestorana}</td>
-		<td value="${ponuda.stavkaJlovnika.id}" class = "stavkaPonude">${ponuda.stavkaPonude.jelo.nazivJela}</td>
+		<td class = "stavkaPonude">${ponuda.stavkaPonude}</td>
+		<td class = "prihvaceno">${ponuda.prihvaceno}</td>
 		<td style = "visibility: hidden; max-width: 0px" class = "id">${ponuda.id}</td>
 	</tr>
 #{/list}
@@ -87,7 +91,12 @@ function sync(item){
 		  #{if mode == 'posalji'}
 		    @{Ponude.posalji()}
 		  #{/if}
+		  #{if mode == 'edit'}
+		    @{Ponude.edit()}
+		  #{/if}
 #{/set}
+
+
 
 </br>
 <form action = "${action}">
@@ -102,9 +111,17 @@ function sync(item){
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
+				
 				<p>
 				#{field 'stavkaPonude'}
 					<label for = "${field.id}">Stavka ponude</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'prihvaceno'}
+					<label for = "${field.id}">Prihvaceno</label>
 					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
 				#{/}
 				</p>
