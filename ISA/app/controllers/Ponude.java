@@ -1,15 +1,13 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import models.Ponuda;
 import models.Restoran;
-
-import org.joda.time.format.DateTimeFormat;
-
 import play.mvc.Controller;
 
 public class Ponude extends Controller{
@@ -39,13 +37,16 @@ public class Ponude extends Controller{
 		render(listaPonudaZaPrikaz, mode, selectedIndex);
 	}
 	
-	public static void novePonude(String mode, Long selectedIndex)
+	public static void novePonude(String mode, Long selectedIndex) throws ParseException
 	{
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-/*		LocalDate danasnjiDatum = LocalDate.now();
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-		String formattedDate = formatter.print(d);
-	*/	
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		String[] parts1 = danasnjiDatum.split("-");
+		int godina1 = Integer.parseInt(parts1[0]);
+		int mesec1 = Integer.parseInt(parts1[1]);
+		int dan1 = Integer.parseInt(parts1[2]);
+		Date dateDanas = format.parse(dan1+"/"+mesec1+"/"+godina1);
+
 		if(session.isEmpty())
 		{
 			redirect("http://localhost:9000/logovanje/show");
@@ -58,21 +59,25 @@ public class Ponude extends Controller{
 		{
 			if(ponude.get(i).restoran.nazivRestorana.equals(session.get("restoran"))) 
 			{
-/*				danasnjiDatum.format(dtf);
-				String[] parts = (danasnjiDatum.toString("yyyy-MM-dd")).split("-");
-				System.out.println(parts);
-*/				if(1<2){
-//					iznad u ifu ide poredjenje dva datuma, a iznad ifa je parsiranje da bih mogao porediti datume 
-//					
+				String datumRokaPonude = ponude.get(i).rokPonude;
+
+				String[] parts2 = datumRokaPonude.split("-");
+				int godina2 = Integer.parseInt(parts2[0]);
+				int mesec2 = Integer.parseInt(parts2[1]);
+				int dan2 = Integer.parseInt(parts2[2]);
+				Date dateRok = format.parse(dan2+"/"+mesec2+"/"+godina2);
+				
+				if( dateDanas.before(dateRok) ){
 					listaPonudaZaPrikaz.add(ponude.get(i));
 				}
+				
 			}
 		}
 		
 		render(listaPonudaZaPrikaz, mode, selectedIndex);
 	}
 	
-	public static void prihvati(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno)
+	public static void prihvati(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno) throws ParseException
 	{
 		List<Restoran> restorani = Restoran.findAll();
 		Restoran restoran2 = new Restoran();
@@ -90,7 +95,7 @@ public class Ponude extends Controller{
 		novePonude("novePonude",ponuda.id);
 	}
 	
-	public static void odbij(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno)
+	public static void odbij(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno) throws ParseException
 	{
 		List<Restoran> restorani = Restoran.findAll();
 		Restoran restoran2 = new Restoran();

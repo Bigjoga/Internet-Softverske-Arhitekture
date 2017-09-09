@@ -50,6 +50,7 @@ public class Logovanje extends Controller{
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
+//
 					List<Ponuda> ponude = Ponuda.findAll();
 					List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
 					for(int i=0; i<ponude.size(); i++)
@@ -62,7 +63,7 @@ public class Logovanje extends Controller{
 					Integer brojPonuda2 = listaPonudaZaPrikaz.size();
 					List<Integer> brojPonuda = new ArrayList<>();
 					brojPonuda.add(brojPonuda2);
-					
+//					
 					
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
