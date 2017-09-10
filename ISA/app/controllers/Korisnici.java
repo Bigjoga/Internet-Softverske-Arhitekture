@@ -52,7 +52,17 @@ public class Korisnici extends Controller{
 		List<Korisnik> listaKorisnikaZaPrikaz = new ArrayList<Korisnik>();
 		List<Restoran> restorani = Restoran.findAll();
 		Restoran rest = new Restoran();
-		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();		
+	//	-----------
+/*		List<UlogaKorisnika> ulogee = UlogaKorisnika.findAll();
+		List<UlogaKorisnika> uloga = new ArrayList<>();
+		
+		for(int i=0; i<ulogee.size(); i++)
+		{
+				uloga.add(ulogee.get(i));
+		}
+*/	//-----------	
+		
 		
 		for(int i=0; i<korisnici.size(); i++)
 		{

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import models.Pice;
 import models.Ponuda;
 import models.Restoran;
+import models.Rezervacija;
 import play.mvc.Controller;
 
 public class Ponude extends Controller{
@@ -188,4 +190,5 @@ public class Ponude extends Controller{
 			show("add",ponuda.id);
 		}
 	}
+	
 }

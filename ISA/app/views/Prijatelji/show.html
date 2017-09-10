@@ -16,6 +16,7 @@ function GetURLParameter(sParam)
 	        }
 	    }
 	}
+	
 
 $(document).ready(function(){
 	var zaPrikazivanjeStoTreba = 0;
@@ -118,7 +119,7 @@ function remove(id)
 				<p>
 				#{field 'prijatelj.idKor1'}
 					<label for = "${field.id}">Prvi korisnik</label>
-					<input type = "text" name = "${prijatelj.idKor1.ime}" readonly id = "${field.id}"/>
+					<input type = "text" name = "${ime}" readonly id = "${field.id}"/>
 				#{/} 
 				</p>
 
