@@ -154,6 +154,7 @@ public class Korisnici extends Controller{
 	
 	public static void createZaMenadzeraSistema(Korisnik korisnik, Long restoran, Long uloga)
 	{	
+		System.out.println("usao sam");
 		UlogaKorisnika ulog = new UlogaKorisnika();
 		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
 		

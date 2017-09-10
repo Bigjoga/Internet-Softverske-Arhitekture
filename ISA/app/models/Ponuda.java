@@ -24,6 +24,12 @@ public class Ponuda extends Model{
 	@Column(name = "RokPonude", unique = false, nullable = false)
 	public String rokPonude;
 	
+	@Column(name = "RokIsporuke", unique = false, nullable = false)
+	public String rokIsporuke;
+	
+	@Column(name = "SaljePonudu", unique = false, nullable = false)
+	public String saljePonudu;
+	
 	@Column(name = "StavkaPonude", unique = false, nullable = false)
 	public String stavkaPonude;
 	
@@ -33,7 +39,7 @@ public class Ponuda extends Model{
 	@ManyToOne
 	public Restoran restoran;
 
-	public Ponuda(String stavkaPonude, Restoran restoran, String prihvaceno, String kolicina, String cena, String rokPonude) {
+	public Ponuda(String stavkaPonude, Restoran restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String saljePonudu, String rokIsporuke) {
 		super();
 		this.stavkaPonude = stavkaPonude;
 		this.restoran = restoran;
@@ -41,6 +47,8 @@ public class Ponuda extends Model{
 		this.kolicina = kolicina;
 		this.cena = cena;
 		this.rokPonude = rokPonude;
+		this.saljePonudu = saljePonudu;
+		this.rokIsporuke = rokIsporuke;
 	}
 
 }

@@ -30,15 +30,25 @@ public class Ponude extends Controller{
 		List<Ponuda> ponude = Ponuda.findAll();
 		List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
 		
+	//	-----------
+		List<Restoran> restorann = Restoran.findAll();
+		List<Restoran> restoran = new ArrayList<>();
+		
+		for(int i=0; i<restorann.size(); i++)
+		{
+				restoran.add(restorann.get(i));
+		}
+	//-----------	
+		
 		for(int i=0; i<ponude.size(); i++)
 		{
-			String[] parts2 = ponude.get(i).rokPonude.split("-");
+			String[] parts2 = ponude.get(i).rokIsporuke.split("-");
 			int godina2 = Integer.parseInt(parts2[0]);
 			int mesec2 = Integer.parseInt(parts2[1]);
 			int dan2 = Integer.parseInt(parts2[2]);
-			Date dateRok = format.parse(dan2+"/"+mesec2+"/"+godina2);
+			Date dateIsporuke = format.parse(dan2+"/"+mesec2+"/"+godina2);
 			
-			if(!dateDanas.after(dateRok)){
+			if( (!dateDanas.after(dateIsporuke)) && ponude.get(i).saljePonudu.equals(session.get("ime")) ){
 				listaPonudaZaPrikaz.add(ponude.get(i));
 			}
 		}
@@ -46,7 +56,7 @@ public class Ponude extends Controller{
 		if(mode == null || mode.equals(""))
 			mode = "edit";
 		
-		render(listaPonudaZaPrikaz, mode, selectedIndex);
+		render(listaPonudaZaPrikaz, restoran, mode, selectedIndex);
 	}
 	
 	public static void novePonude(String mode, Long selectedIndex) throws ParseException
@@ -89,17 +99,8 @@ public class Ponude extends Controller{
 		render(listaPonudaZaPrikaz, mode, selectedIndex);
 	}
 	
-	public static void prihvati(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno) throws ParseException
+	public static void prihvati(String mode, Ponuda ponuda, Long selectedIndex) throws ParseException
 	{
-		List<Restoran> restorani = Restoran.findAll();
-		Restoran restoran2 = new Restoran();
-		for(int i=0 ;i< restorani.size();i++){
-			if(restorani.get(i).nazivRestorana.equals(restoran))
-				restoran2=restorani.get(i);
-		}
-		
-		ponuda.restoran=restoran2;
-		ponuda.stavkaPonude=stavkaPonude;
 		ponuda.prihvaceno="da";
 		
 		ponuda.save();
@@ -107,22 +108,9 @@ public class Ponude extends Controller{
 		novePonude("novePonude",ponuda.id);
 	}
 	
-	public static void odbij(String mode, Ponuda ponuda, Long selectedIndex,String stavkaPonude, String restoran, String prihvaceno) throws ParseException
-	{
-		List<Restoran> restorani = Restoran.findAll();
-		Restoran restoran2 = new Restoran();
-		for(int i=0 ;i< restorani.size();i++){
-			if(restorani.get(i).nazivRestorana.equals(restoran))
-				restoran2=restorani.get(i);
-		}
-		
-		ponuda.restoran=restoran2;
-		ponuda.stavkaPonude=stavkaPonude;
-		
+	public static void odbij(String mode, Ponuda ponuda, Long selectedIndex) throws ParseException
+	{		
 		if(ponuda.prihvaceno.equals("da")){
-			ponuda.prihvaceno="da";
-
-			ponuda.save();
 			mode="novePonude";
 			novePonude("novePonude",ponuda.id);			
 		}else{
@@ -134,21 +122,38 @@ public class Ponude extends Controller{
 		}
 	}
 	
-	public static void posalji(String stavkaPonude, String restoran, String prihvaceno, String kolicina, String cena, String rokPonude) throws ParseException
+	public static void posalji(Ponuda ponuda, String stavkaPonude, Long restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String rokIsporuke) throws ParseException
 	{
-		List<Restoran> restorani = Restoran.findAll();
-		Restoran restoran2 = new Restoran();
-		for(int i=0 ;i< restorani.size();i++){
-			if(restorani.get(i).nazivRestorana.equals(restoran))
-				restoran2=restorani.get(i);
-		}
+		Restoran restoran2 = Restoran.findById(restoran);
+		String saljePonudu = session.get("ime");
 		
-		Ponuda pon=new Ponuda(stavkaPonude, restoran2, "neodgovoreno", kolicina, cena, rokPonude);
-		pon.save();
-		show("add",pon.id);
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		
+		String[] parts1 = rokIsporuke.split("-");
+		int godina1 = Integer.parseInt(parts1[0]);
+		int mesec1 = Integer.parseInt(parts1[1]);
+		int dan1 = Integer.parseInt(parts1[2]);
+		Date dateIsporuka = format.parse(dan1+"/"+mesec1+"/"+godina1);
+		
+		String[] parts2 = rokPonude.split("-");
+		int godina2 = Integer.parseInt(parts2[0]);
+		int mesec2 = Integer.parseInt(parts2[1]);
+		int dan2 = Integer.parseInt(parts2[2]);
+		Date dateRok = format.parse(dan2+"/"+mesec2+"/"+godina2);
+		
+		if(dateIsporuka.after(dateRok)){
+			Ponuda pon=new Ponuda(stavkaPonude, restoran2, "neodgovoreno", kolicina, cena, rokPonude, saljePonudu, rokIsporuke);
+			pon.restoran=restoran2;
+			pon.save();
+			System.out.println("Kreirana i poslata nova ponuda");
+			show("add",pon.id);
+		} else {
+			System.out.println("***Ponuda NIJE kreirana: rok isporuke ne sme da istice pre roka odgovora na ponudu!");
+			show("add",ponuda.id);		
+		}
 	}
-	
-	public static void edit(Ponuda ponuda,String stavkaPonude, String restoran, String prihvaceno, String kolicina, String cena, String rokPonude) throws ParseException
+
+	public static void edit(Ponuda ponuda,String stavkaPonude, String restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String rokIsporuke) throws ParseException
 	{
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -178,6 +183,7 @@ public class Ponude extends Controller{
 			ponuda.cena = cena;
 			ponuda.kolicina = kolicina;
 			ponuda.rokPonude = rokPonude;
+			ponuda.rokIsporuke = rokIsporuke;
 			ponuda.save();
 			show("add",ponuda.id);
 		}

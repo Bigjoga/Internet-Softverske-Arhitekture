@@ -37,6 +37,8 @@ function sync(item){
 	kolicina = item.find(".kolicina").html()
 	cena = item.find(".cena").html()
 	rokPonude = item.find(".rokPonude").html()
+	rokIsporuke = item.find(".rokIsporuke").html()
+	saljePonudu = item.find(".saljePonudu").html()
 	prihvaceno = item.find(".prihvaceno").html()
     id = item.find(".id").html()
     
@@ -47,6 +49,8 @@ function sync(item){
     $("#kolicina").val(kolicina);
     $("#cena").val(cena);
     $("#rokPonude").val(rokPonude);
+    $("#rokIsporuke").val(rokIsporuke);
+    $("#saljePonudu").val(saljePonudu);
     $("#prihvaceno").val(prihvaceno);
     $("#ponuda_id").val(id);
 }
@@ -66,7 +70,6 @@ function sync(item){
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
-  <li><a href="@{Ponude.show("add",null)}" id = "add"><img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="@{Ponude.show("posalji",null)}" id = "add"> posalji ponudu<img src="@{'/public/images/add.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
@@ -79,10 +82,11 @@ function sync(item){
 <table class="TabelaForme">
 	<tr class = "header">
 	   <th>Restoran</th> 
-	   <th>Stavka ponude</th>
+	   <th>Naziv proizvoda</th>
 	   <th>Kolicina</th>
 	   <th>Cena</th>
-	   <th>Rok ponude</th>
+	   <th>Rok za odgovor na ponudu</th>
+	   <th>Rok isporuke</th>
 	   <th>Prihvaceno</th>
 	</tr>
 	
@@ -93,6 +97,7 @@ function sync(item){
 		<td class = "kolicina">${ponuda.kolicina}</td>
 		<td class = "cena">${ponuda.cena}</td>
 		<td class = "rokPonude">${ponuda.rokPonude}</td>
+		<td class = "rokIsporuke">${ponuda.rokIsporuke}</td>
 		<td class = "prihvaceno">${ponuda.prihvaceno}</td>
 		<td style = "visibility: hidden; max-width: 0px" class = "id">${ponuda.id}</td>
 	</tr>
@@ -116,11 +121,23 @@ function sync(item){
 				#{field 'ponuda.id'}
 					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
 				#{/}
-
+				
 				<p>
 				#{field 'restoran'}
 					<label for = "${field.id}">Restoran</label>
-					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+					<select name = "${field.name}" id = "${field.id}" />
+					#{list items:restoran, as:'res'}
+					<option value = "${res.id}">${res.nazivRestorana}</option>
+					#{/list}
+					</select>
+					
+					 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#drzaveModal">...	</button>
+					 
+					 <script>
+					 	//alert(zaPrikazivanjeStoTreba);
+					 	//document.getElementById('${field.id}').selectedIndex=zaPrikazivanjeStoTreba;
+					 	document.getElementById('${field.id}').selectedIndex=GetURLParameter('id')-1;
+					 </script>
 				#{/}
 				</p>
 				
@@ -153,6 +170,13 @@ function sync(item){
 				</p>
 				
 				<p>
+				#{field 'rokIsporuke'}
+					<label for = "${field.id}">Rok Isporuke</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
 				
 				<div id = "formActions">
 					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
@@ -163,4 +187,35 @@ function sync(item){
 
 
 </br>
+
+ <!-- Modal -->
+  <div class="modal fade" id="drzaveModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+      <div class="modal-header">
+      	Restorani koji se nalaze u sistemu:
+      </div>
+      <div class="modal-body">
+	    <table style = "padding:2em">
+		<tr class = "header">
+		   <th>Naziv</th> 
+		   <th>Adresa</th>
+		</tr>
+		#{list items:restoran, as:'res'}
+		<tr>
+			<td class = "oznaka">${res.nazivRestorana}</td>
+			<td class = "naziv">${res.adresa}</td>
+			<td style = "visibility: hidden; max-width: 0px" class = "dr_id">${res.id}</td>
+		</tr>
+		#{/list}
+		</table>
+		<div class="modal-footer">
+			<input id = "drzavaPickup" type = "button" value = "izbor"/>
+		</div>
+		</div>
+      </div>
+    </div>
+   </div>
+
 </div>
