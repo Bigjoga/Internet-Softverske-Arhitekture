@@ -9,6 +9,7 @@ import com.sun.prism.RenderTarget;
 
 import models.Jelovnik;
 import models.Korisnik;
+import models.Ponuda;
 import models.Restoran;
 import models.UlogaKorisnika;
 import play.mvc.Controller;
@@ -51,7 +52,17 @@ public class Korisnici extends Controller{
 		List<Korisnik> listaKorisnikaZaPrikaz = new ArrayList<Korisnik>();
 		List<Restoran> restorani = Restoran.findAll();
 		Restoran rest = new Restoran();
-		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();		
+	//	-----------
+/*		List<UlogaKorisnika> ulogee = UlogaKorisnika.findAll();
+		List<UlogaKorisnika> uloga = new ArrayList<>();
+		
+		for(int i=0; i<ulogee.size(); i++)
+		{
+				uloga.add(ulogee.get(i));
+		}
+*/	//-----------	
+		
 		
 		for(int i=0; i<korisnici.size(); i++)
 		{
@@ -140,13 +151,20 @@ public class Korisnici extends Controller{
 		Restoran rest= Restoran.findById(restoran);
 		UlogaKorisnika ulo=  UlogaKorisnika.findById(uloga);
 		
-		Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, rest);
-		kor.save();
-		showZaposleni("add", kor.id);
+		if (ulo.nazivUloge.equals("Ponudjac")) {
+			Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, null);
+			kor.save();
+			showZaposleni("add", kor.id);
+		} else {
+			Korisnik kor= new Korisnik(korisnik.email, korisnik.sifra, korisnik.ime, korisnik.adresa, 0 , ulo, rest);
+			kor.save();
+			showZaposleni("add", kor.id);
+		}
 	}
 	
 	public static void createZaMenadzeraSistema(Korisnik korisnik, Long restoran, Long uloga)
 	{	
+		System.out.println("usao sam");
 		UlogaKorisnika ulog = new UlogaKorisnika();
 		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
 		
@@ -174,8 +192,18 @@ public class Korisnici extends Controller{
 	
 	public static void editZaMenadzeraSistema(Korisnik korisnik, Long restoran)
 	{
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
+		UlogaKorisnika ulo=new UlogaKorisnika();
+		for(int i=0 ;i<uloge.size();i++){
+			if(uloge.get(i).nazivUloge.equals("Menadzer"))
+				ulo=uloge.get(i);
+		}
+		korisnik.uloga = ulo;
+//		UlogaKorisnika ulkor = new UlogaKorisnika();
+//		ulkor.nazivUloge = "Menadzer";
 		Restoran rest = Restoran.findById(restoran);
 		korisnik.restoran = rest;
+//		korisnik.uloga = ulkor;
 		korisnik.save();
 		showMenadzeraZaRestoran("edit",korisnik.id);
 	}

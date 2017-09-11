@@ -58,7 +58,9 @@ public class Prijatelji extends Controller{
 		
 		Korisnik prijatelj2= Korisnik.findById(korisnici);
 		Prijatelj prija= new Prijatelj(ulogovaniKorisnik.get(0), prijatelj2);
+		Prijatelj prija2= new Prijatelj(prijatelj2, ulogovaniKorisnik.get(0));
 		prija.save();
+		prija2.save();
 		show("add", prijateljjjj.id);
 	}
 	

@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Korisnik;
+import models.Ponuda;
+import models.Restoran;
+import models.UlogaKorisnika;
 import play.mvc.Controller;
 
 public class Logovanje extends Controller{
 
-	public static void show(String mode)
+	public static void show(String mode, Long selectedIndex)
 	{
 		if(mode == null || mode.equals(""))
 			mode = "login";
 		render(mode);
 	}
-	
-	public static void login(Korisnik korisnik)
+
+	public static void login(Korisnik korisnik, String mode)
 	{
 		List<Korisnik> k = Korisnik.findAll();
 		boolean naslo = false;
@@ -49,59 +52,155 @@ public class Logovanje extends Controller{
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
+//
+					List<Ponuda> ponude = Ponuda.findAll();
+					List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
+					for(int i=0; i<ponude.size(); i++)
+					{
+						if(ponude.get(i).restoran.nazivRestorana.equals(session.get("restoran"))) 
+						{			
+							listaPonudaZaPrikaz.add(ponude.get(i));
+						}
+					}
+					Integer brojPonuda2 = listaPonudaZaPrikaz.size();
+					List<Integer> brojPonuda = new ArrayList<>();
+					brojPonuda.add(brojPonuda2);
+//					
+					
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/menadzer.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/menadzer.html", korr );
+					}
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/konobar.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/konobar.html", korr );
+					}
 				}
 				
 				
 				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/sanker.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/sanker.html", korr );
+					}
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/kuvar.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/kuvar.html", korr );
+					}
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer sistema")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/menadzerSistema.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/menadzerSistema.html", korr );
+					}
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/ponudjac.html", korr );
+					if(kor.brojPoseta==0){
+						kor.save();
+						renderTemplate("Logovanje/novaSifra.html", korr );
+					}else{
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/ponudjac.html", korr );
+					}
 				}
 
 			}
 		}
 		
-		String mode = "login";
+		mode = "login";
 		renderTemplate("Logovanje/show.html", mode );
 	}
+	
+	public static void novaSifra(Korisnik korisnik)
+	{
+		
+		List<Korisnik> k = Korisnik.findAll();
+		
+		for(Korisnik kor : k)
+		{
+			if(kor.email.equals(session.get("email")) && kor.sifra.equals(session.get("sifra")))
+			{
+				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/ponudjac.html", kor );
+				}
+				if(kor.uloga.nazivUloge.toString().equals("Menadzer sistema")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/menadzerSistema.html", kor );
+				}
+				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/menadzer.html", kor );
+				}
+				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/sanker.html", kor );
+				}
+				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/kuvar.html", kor );
+				}
+				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
+					kor.sifra=korisnik.sifra;
+					kor.brojPoseta+=1;
+					kor.save();
+					renderTemplate("Korisnici/konobar.html", kor );
+				}
+			}
+		}
+
+	}
+
 	
 }

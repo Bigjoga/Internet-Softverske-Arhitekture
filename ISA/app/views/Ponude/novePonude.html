@@ -1,0 +1,196 @@
+#{extends 'standardForm.html' /}
+#{set title:'Pristigle ponude'/}
+
+<script>
+
+function GetURLParameter(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++)
+	    {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam)
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+	}
+	
+$(document).ready(function(){
+	var zaPrikazivanjeStoTreba = 0;
+	//alert(GetURLParameter('id'));
+	//zaPrikazivanjeStoTreba = GetURLParameter('id');
+	//alert(zaPrikazivanjeStoTreba)
+	$("#drzavaPickup").click(function(){
+		id = $(".highlighted").find(".dr_id").html();
+		$("select").val(id);
+		$('#drzaveModal').modal('toggle');
+	});
+});	
+
+
+function sync(item){
+	
+    restoran = item.find(".restoran").html()
+	stavkaPonude = item.find(".stavkaPonude").html()
+	kolicina = item.find(".kolicina").html()
+	cena = item.find(".cena").html()
+	rokPonude = item.find(".rokPonude").html()
+	rokIsporuke = item.find(".rokIsporuke").html()
+	saljePonudu = item.find(".saljePonudu").html()
+	prihvaceno = item.find(".prihvaceno").html()
+    id = item.find(".id").html()
+    
+    
+    
+    $("#restoran").val(restoran);
+    $("#stavkaPonude").val(stavkaPonude);
+    $("#kolicina").val(kolicina);
+    $("#cena").val(cena);
+    $("#rokPonude").val(rokPonude);
+    $("#rokIsporuke").val(rokIsporuke);
+    $("#saljePonudu").val(saljePonudu);
+    $("#prihvaceno").val(prihvaceno);
+    $("#ponuda_id").val(id);
+}
+
+</script>
+
+
+
+
+<p>
+<ul>
+  <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
+  <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
+  <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
+  <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
+  <li><a href="@{Ponude.novePonude("prihvati",null)}" id = "add"> prihvati ponudu</a></li>
+  <li><a href="@{Ponude.novePonude("odbij",null)}" id = "no"> odbij ponudu</a></li>
+  <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
+  <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
+</ul>
+</p>
+
+<div class = "container-fluid">
+<h1>Ponude</h1>
+
+<table class="TabelaForme">
+	<tr class = "header">
+	   <th>Restoran</th> 
+	   <th>Stavka ponude</th>
+	   <th>Kolicina</th>
+	   <th>Cena</th>
+	   <th>Rok za odgovor na ponudu</th>
+	   <th>Rok isporuke</th>
+	   <th>Ponudu poslao</th>
+	   <th>Prihvaceno</th>
+	</tr>
+	
+#{list items:listaPonudaZaPrikaz, as:'ponuda'}
+	<tr #{if ponuda.id == selectedIndex} class = "highlighted" #{/if}>
+		<td value="${ponuda.restoran.id}" class = "restoran">${ponuda.restoran.nazivRestorana}</td>
+		<td class = "stavkaPonude">${ponuda.stavkaPonude}</td>
+		<td class = "kolicina">${ponuda.kolicina}</td>
+		<td class = "cena">${ponuda.cena}</td>
+		<td class = "rokPonude">${ponuda.rokPonude}</td>
+		<td class = "rokIsporuke">${ponuda.rokIsporuke}</td>
+		<td class = "saljePonudu">${ponuda.saljePonudu}</td>
+		<td class = "prihvaceno">${ponuda.prihvaceno}</td>
+		<td style = "visibility: hidden; max-width: 0px" class = "id">${ponuda.id}</td>
+	</tr>
+#{/list}
+</table>
+
+#{set 'action'}
+		  #{if mode == 'posalji'}
+		    @{Ponude.posalji()}
+		  #{/if}
+		  #{if mode == 'edit'}
+		    @{Ponude.edit()}
+		  #{/if}
+		  #{if mode == 'prihvati'}
+		    @{Ponude.prihvati()}
+		  #{/if}
+		  #{if mode == 'odbij'}
+		    @{Ponude.odbij()}
+		  #{/if}
+#{/set}
+
+
+
+</br>
+<form action = "${action}">
+		
+				#{field 'ponuda.id'}
+					<input type = "hidden" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+
+				<p>
+				#{field 'restoran'}
+					<label for = "${field.id}">Restoran</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'stavkaPonude'}
+					<label for = "${field.id}">Stavka ponude</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'kolicina'}
+					<label for = "${field.id}">Kolicina</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'cena'}
+					<label for = "${field.id}">Cena</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'rokPonude'}
+					<label for = "${field.id}">Rok ponude</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'rokIsporuke'}
+					<label for = "${field.id}">Rok isporuke</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'saljePonudu'}
+					<label for = "${field.id}">Prihvaceno</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				
+				<p>
+				#{field 'prihvaceno'}
+					<label for = "${field.id}">Prihvaceno</label>
+					<input style="margin-left: 50px; type = "text" name = "${field.name}" id = "${field.id}"/>
+				#{/}
+				</p>
+				<p>
+				
+				<div id = "formActions">
+					<input type = "submit" value = "Potvrda" style="margin-left:6em"/>
+					<a href = "#" style="margin-left:1em">Rollback</a>
+				</div>			
+				
+		</form>
+
+
+</br>
+</div>
