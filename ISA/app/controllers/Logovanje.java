@@ -162,40 +162,106 @@ public class Logovanje extends Controller{
 			if(kor.email.equals(session.get("email")) && kor.sifra.equals(session.get("sifra")))
 			{
 				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/ponudjac.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/ponudjac.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer sistema")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/menadzerSistema.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/menadzerSistema.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/menadzer.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/menadzer.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/sanker.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/sanker.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/kuvar.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/kuvar.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
-					kor.sifra=korisnik.sifra;
-					kor.brojPoseta+=1;
-					kor.save();
-					renderTemplate("Korisnici/konobar.html", kor );
+					String sifra=korisnik.sifra;
+					System.out.println(sifra);
+					String[] sifre= sifra.split(",");
+					String sifra1= sifre[0];
+					String sifra2= sifre[1];
+					String [] SSIFRA2= sifra2.split(" ");
+					if(sifra1.toString().equals(SSIFRA2[1].toString())){
+						kor.sifra=sifra1;
+						kor.brojPoseta+=1;
+						kor.save();
+						renderTemplate("Korisnici/konobar.html", kor );
+					}else{
+						System.out.println("Sifre su razlicite!");
+						renderTemplate("Logovanje/novaSifra.html", kor );
+					}
 				}
 			}
 		}
