@@ -36,6 +36,9 @@ public class Ponuda extends Model{
 	@Column(name = "Procitano", unique = false, nullable = false)
 	public String procitano;
 	
+	@Column(name = "Primljeno", unique = false, nullable = false)
+	public String primljeno;
+	
 	@Column(name = "Prihvaceno", unique = false, nullable = false)
 	public String prihvaceno;
 
@@ -47,7 +50,8 @@ public class Ponuda extends Model{
 		this.stavkaPonude = stavkaPonude;
 		this.restoran = restoran;
 		this.prihvaceno = prihvaceno;
-		this.prihvaceno = procitano;
+		this.procitano = procitano;
+		this.primljeno = "ne";
 		this.kolicina = kolicina;
 		this.cena = cena;
 		this.rokPonude = rokPonude;

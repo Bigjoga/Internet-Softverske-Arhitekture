@@ -53,7 +53,9 @@ button { margin: -20px -50px;
 
 </br>
 <div align=center>
-	<a href="http://localhost:9000/Ponude/novePonude">Pristigle ponude</a>
+	#{list items:brojPonuda, as:'bp'}
+	<a href="http://localhost:9000/Ponude/novePonude">Pristigle ponude (<td>${bp}</td>)
+	#{/list}
 </div>
 </br>
 

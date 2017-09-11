@@ -58,15 +58,13 @@ public class Ponude extends Controller{
 		}
 		
 		if(mode == null || mode.equals(""))
-			mode = "procitano";
+			mode = "posalji";
 		
 		render(listaPonudaZaPrikaz, restoran, mode, selectedIndex);
 	}
 	
 	public static void novePonude(String mode, Long selectedIndex) throws ParseException
 	{
-		if(mode == null || mode.equals(""))
-			mode = "prihvati";
 		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -114,6 +112,7 @@ public class Ponude extends Controller{
 		}else{
 			ponuda.prihvaceno="DA";
 			ponuda.procitano="NOVI ODGOVOR";
+			ponuda.primljeno="da";
 			ponuda.save();
 			mode="prihvati";
 			novePonude(mode,ponuda.id);
@@ -128,6 +127,7 @@ public class Ponude extends Controller{
 		}else{
 			ponuda.prihvaceno="NE";
 			ponuda.procitano="NOVI ODGOVOR";
+			ponuda.primljeno="da";
 			ponuda.save();
 			mode="odbij";
 			novePonude(mode,ponuda.id);
@@ -221,7 +221,24 @@ public class Ponude extends Controller{
 			
 		}
 		/////// PROCITANO OBAVESTENJE
-		show("procitano", null);
+		show("posalji", null);
+	}
+	
+	public static void primljeno() throws ParseException {
+		
+		/////// PROCITANO OBAVESTENJE
+		List<Ponuda> ponudePrimi = Ponuda.findAll();
+		for(Ponuda pP : ponudePrimi)
+		{
+			
+			if(pP.restoran.nazivRestorana.equals(session.get("restoran"))){
+				pP.primljeno="da";
+				pP.save();
+			}
+			
+		}
+		/////// PROCITANO OBAVESTENJE
+		novePonude("prihvati", null);
 	}
 	
 }

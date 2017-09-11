@@ -1,6 +1,9 @@
 package controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import models.Korisnik;
@@ -18,7 +21,7 @@ public class Logovanje extends Controller{
 		render(mode);
 	}
 
-	public static void login(Korisnik korisnik, String mode)
+	public static void login(Korisnik korisnik, String mode) throws ParseException
 	{
 		List<Korisnik> k = Korisnik.findAll();
 		boolean naslo = false;
@@ -60,17 +63,46 @@ public class Logovanje extends Controller{
 							ress.add(res);
 						}
 					}
-//					
+
+//  OBAVESTENJE O NOVIM PONUDAMA - dole
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					String[] parts1 = danasnjiDatum.split("-");
+					int godina1 = Integer.parseInt(parts1[0]);
+					int mesec1 = Integer.parseInt(parts1[1]);
+					int dan1 = Integer.parseInt(parts1[2]);
+					Date dateDanas = format.parse(dan1+"/"+mesec1+"/"+godina1);
+					
+					List<Ponuda> ponude = Ponuda.findAll();
+					List<Ponuda> listaNovihOdgovora = new ArrayList<>();
+					for(int i=0; i<ponude.size(); i++)
+					{
+						String datumRokaPonude = ponude.get(i).rokPonude;
+
+						String[] parts2 = datumRokaPonude.split("-");
+						int godina2 = Integer.parseInt(parts2[0]);
+						int mesec2 = Integer.parseInt(parts2[1]);
+						int dan2 = Integer.parseInt(parts2[2]);
+						Date datePonude = format.parse(dan2+"/"+mesec2+"/"+godina2);
+						if( ponude.get(i).restoran.nazivRestorana.equals(session.get("restoran")) && ponude.get(i).primljeno.equals("ne") && (!dateDanas.after(datePonude)) ) 
+						{			
+							listaNovihOdgovora.add(ponude.get(i));
+						}
+					}
+					Integer brojPonuda2 = listaNovihOdgovora.size();
+					List<Integer> brojPonuda = new ArrayList<>();
+					brojPonuda.add(brojPonuda2);
+//	OBAVESTENJE O NOVIM PONUDAMA - gore
 					
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr, ress );
+						renderTemplate("Logovanje/novaSifra.html", korr, ress, brojPonuda );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/menadzer.html", korr, ress);
+						renderTemplate("Korisnici/menadzer.html", korr, ress, brojPonuda);
 					}
 				}
 				

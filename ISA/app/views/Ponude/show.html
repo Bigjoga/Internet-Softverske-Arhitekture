@@ -43,8 +43,6 @@ function sync(item){
     id = item.find(".id").html()
     
     
-    
-    $("#restoran").val(restoran);
     $("#stavkaPonude").val(stavkaPonude);
     $("#kolicina").val(kolicina);
     $("#cena").val(cena);
@@ -62,10 +60,7 @@ function sync(item){
 
 <p>
 <ul>
-  <li><a href="@{Ponude.show("search",null)}" id = "search"><img src="@{'/public/images/search.gif'}"/></a></li>
   <li><a href="@{Ponude.show("edit",null)}" id = "refresh">Izmena<img src="@{'/public/images/refresh.gif'}"/></a></li>
-  <li><a href="#" id = "pickup"><img src="@{'/public/images/zoom-pickup.gif'}"/></a></li>
-  <li><a href="#" id = "help"><img src="@{'/public/images/help.gif'}"/></a></li>
   <li><a id = "first"><img src="@{'/public/images/first.gif'}"/></a></li>
   <li><a id = "prev"><img src="@{'/public/images/prev.gif'}"/></a></li>
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
