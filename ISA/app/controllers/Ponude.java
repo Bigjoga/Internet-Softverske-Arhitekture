@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import models.Korisnik;
 import models.Pice;
 import models.Ponuda;
 import models.Restoran;
@@ -31,6 +32,7 @@ public class Ponude extends Controller{
 		
 		List<Ponuda> ponude = Ponuda.findAll();
 		List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
+
 		
 	//	-----------
 		List<Restoran> restorann = Restoran.findAll();
@@ -56,13 +58,16 @@ public class Ponude extends Controller{
 		}
 		
 		if(mode == null || mode.equals(""))
-			mode = "edit";
+			mode = "procitano";
 		
 		render(listaPonudaZaPrikaz, restoran, mode, selectedIndex);
 	}
 	
 	public static void novePonude(String mode, Long selectedIndex) throws ParseException
 	{
+		if(mode == null || mode.equals(""))
+			mode = "prihvati";
+		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		String[] parts1 = danasnjiDatum.split("-");
@@ -103,24 +108,29 @@ public class Ponude extends Controller{
 	
 	public static void prihvati(String mode, Ponuda ponuda, Long selectedIndex) throws ParseException
 	{
-		ponuda.prihvaceno="da";
-		
-		ponuda.save();
-		mode="novePonude";
-		novePonude("novePonude",ponuda.id);
+		if( ponuda.prihvaceno.equals("da") ){
+			mode="prihvati";
+			novePonude(mode,ponuda.id);			
+		}else{
+			ponuda.prihvaceno="DA";
+			ponuda.procitano="NOVI ODGOVOR";
+			ponuda.save();
+			mode="prihvati";
+			novePonude(mode,ponuda.id);
+		}
 	}
 	
 	public static void odbij(String mode, Ponuda ponuda, Long selectedIndex) throws ParseException
 	{		
-		if(ponuda.prihvaceno.equals("da")){
-			mode="novePonude";
-			novePonude("novePonude",ponuda.id);			
+		if( ponuda.prihvaceno.equals("da") || ponuda.prihvaceno.equals("ne") || ponuda.prihvaceno.equals("DA") || ponuda.prihvaceno.equals("NE") ){
+			mode="odbij";
+			novePonude(mode,ponuda.id);			
 		}else{
-			ponuda.prihvaceno="ne";
-
+			ponuda.prihvaceno="NE";
+			ponuda.procitano="NOVI ODGOVOR";
 			ponuda.save();
-			mode="novePonude";
-			novePonude("novePonude",ponuda.id);
+			mode="odbij";
+			novePonude(mode,ponuda.id);
 		}
 	}
 	
@@ -144,8 +154,9 @@ public class Ponude extends Controller{
 		Date dateRok = format.parse(dan2+"/"+mesec2+"/"+godina2);
 		
 		if(dateIsporuka.after(dateRok)){
-			Ponuda pon=new Ponuda(stavkaPonude, restoran2, "neodgovoreno", kolicina, cena, rokPonude, saljePonudu, rokIsporuke);
+			Ponuda pon=new Ponuda(stavkaPonude, restoran2, "neodgovoreno", "da", kolicina, cena, rokPonude, saljePonudu, rokIsporuke);
 			pon.restoran=restoran2;
+			pon.procitano=" ";
 			pon.save();
 			System.out.println("Kreirana i poslata nova ponuda");
 			show("add",pon.id);
@@ -155,8 +166,10 @@ public class Ponude extends Controller{
 		}
 	}
 
-	public static void edit(Ponuda ponuda,String stavkaPonude, String restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String rokIsporuke) throws ParseException
+	public static void edit(Ponuda ponuda,String stavkaPonude, Long restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String rokIsporuke) throws ParseException
 	{
+		Restoran restoran2 = Restoran.findById(restoran);
+		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String danasnjiDatum = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		String[] parts1 = danasnjiDatum.split("-");
@@ -170,14 +183,7 @@ public class Ponude extends Controller{
 		int dan2 = Integer.parseInt(parts2[2]);
 		Date dateRok = format.parse(dan2+"/"+mesec2+"/"+godina2);
 		
-		List<Restoran> restorani = Restoran.findAll();
-		Restoran restoran2 = new Restoran();
-		for(int i=0 ;i< restorani.size();i++){
-			if(restorani.get(i).nazivRestorana.equals(restoran))
-				restoran2=restorani.get(i);
-		}
-		
-		if( (!dateDanas.before(dateRok)) || ponuda.prihvaceno.equals("da") || ponuda.prihvaceno.equals("ne") ){
+		if( (!dateDanas.before(dateRok)) || ponuda.prihvaceno.equals("da") || ponuda.prihvaceno.equals("ne") || ponuda.prihvaceno.equals("DA") || ponuda.prihvaceno.equals("NE") ){
 			show("add",ponuda.id);
 		}else{
 			ponuda.restoran=restoran2;
@@ -187,8 +193,35 @@ public class Ponude extends Controller{
 			ponuda.rokPonude = rokPonude;
 			ponuda.rokIsporuke = rokIsporuke;
 			ponuda.save();
-			show("add",ponuda.id);
+			show("procitano",ponuda.id);
 		}
+	}
+	
+	public static void procitano() throws ParseException {
+		
+		/////// PROCITANO OBAVESTENJE NE MOZE OVDE DA STOJI!!!
+		List<Ponuda> ponudeRename = Ponuda.findAll();
+		for(Ponuda pR : ponudeRename)
+		{
+			
+			if(pR.saljePonudu.equals(session.get("ime"))){
+				if(pR.prihvaceno.equals("DA"))
+				{
+					pR.prihvaceno="da";
+					pR.procitano=" ";
+					pR.save();
+				}
+				if(pR.prihvaceno.equals("NE"))
+				{
+					pR.prihvaceno="ne";
+					pR.procitano=" ";
+					pR.save();
+				}
+			}
+			
+		}
+		/////// PROCITANO OBAVESTENJE
+		show("procitano", null);
 	}
 	
 }

@@ -33,17 +33,21 @@ public class Ponuda extends Model{
 	@Column(name = "StavkaPonude", unique = false, nullable = false)
 	public String stavkaPonude;
 	
+	@Column(name = "Procitano", unique = false, nullable = false)
+	public String procitano;
+	
 	@Column(name = "Prihvaceno", unique = false, nullable = false)
 	public String prihvaceno;
 
 	@ManyToOne
 	public Restoran restoran;
 
-	public Ponuda(String stavkaPonude, Restoran restoran, String prihvaceno, String kolicina, String cena, String rokPonude, String saljePonudu, String rokIsporuke) {
+	public Ponuda(String stavkaPonude, Restoran restoran, String prihvaceno, String procitano, String kolicina, String cena, String rokPonude, String saljePonudu, String rokIsporuke) {
 		super();
 		this.stavkaPonude = stavkaPonude;
 		this.restoran = restoran;
 		this.prihvaceno = prihvaceno;
+		this.prihvaceno = procitano;
 		this.kolicina = kolicina;
 		this.cena = cena;
 		this.rokPonude = rokPonude;

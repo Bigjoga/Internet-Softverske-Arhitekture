@@ -27,6 +27,13 @@ button { margin: -20px -50px;
 		<td>${k.ime}</td>
 	</tr>
 	#{/list}
+	 , iz restorana "
+	#{list items:ress, as:'r'}
+	<tr>
+		<td>${r.nazivRestorana}</td>
+	</tr>
+	#{/list}
+	"
 </h2>
 
 </br>

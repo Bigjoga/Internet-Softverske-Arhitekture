@@ -27,6 +27,13 @@ button { margin: -20px -50px;
 		<td>${k.ime}</td>
 	</tr>
 	#{/list}
+	 , iz restorana "
+	#{list items:ress, as:'r'}
+	<tr>
+		<td>${r.nazivRestorana}</td>
+	</tr>
+	#{/list}
+	"
 </h2>
 
 </br>
@@ -65,6 +72,12 @@ button { margin: -20px -50px;
 </br>
 <div align=center>
       <a href="http://localhost:9000/OcenaRestorana/show" id = "korisnici">Ocena restorana
+</div>
+</br>
+
+</br>
+<div align=center>
+      <a href="http://localhost:9000/Korisnici/show" id = "korisnici">Azuriranje podataka
 </div>
 </br>
 

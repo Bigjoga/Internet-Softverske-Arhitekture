@@ -52,70 +52,89 @@ public class Logovanje extends Controller{
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Menadzer")){
-//
-					List<Ponuda> ponude = Ponuda.findAll();
-					List<Ponuda> listaPonudaZaPrikaz = new ArrayList<>();
-					for(int i=0; i<ponude.size(); i++)
+					List<Restoran> r = Restoran.findAll();
+					List<Restoran> ress= new ArrayList<>();
+					for(Restoran res : r)
 					{
-						if(ponude.get(i).restoran.nazivRestorana.equals(session.get("restoran"))) 
-						{			
-							listaPonudaZaPrikaz.add(ponude.get(i));
+						if(res.nazivRestorana.equals(session.get("restoran"))){
+							ress.add(res);
 						}
 					}
-					Integer brojPonuda2 = listaPonudaZaPrikaz.size();
-					List<Integer> brojPonuda = new ArrayList<>();
-					brojPonuda.add(brojPonuda2);
 //					
 					
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr );
+						renderTemplate("Logovanje/novaSifra.html", korr, ress );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/menadzer.html", korr );
+						renderTemplate("Korisnici/menadzer.html", korr, ress);
 					}
 				}
 				
 				if(kor.uloga.nazivUloge.toString().equals("Konobar")){
 					List<Korisnik> korr= new ArrayList<>();
-					korr.add(kor);
+					korr.add(kor);		
+					List<Restoran> r = Restoran.findAll();
+					List<Restoran> ress= new ArrayList<>();
+					for(Restoran res : r)
+					{
+						if(res.nazivRestorana.equals(session.get("restoran"))){
+							ress.add(res);
+						}
+					}
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr );
+						renderTemplate("Logovanje/novaSifra.html", korr, ress );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/konobar.html", korr );
+						renderTemplate("Korisnici/konobar.html", korr, ress );
 					}
 				}
 				
 				
 				if(kor.uloga.nazivUloge.toString().equals("Sanker")){
 					List<Korisnik> korr= new ArrayList<>();
-					korr.add(kor);
+					korr.add(kor);		
+					List<Restoran> r = Restoran.findAll();
+					List<Restoran> ress= new ArrayList<>();
+					for(Restoran res : r)
+					{
+						if(res.nazivRestorana.equals(session.get("restoran"))){
+							ress.add(res);
+						}
+					}
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr );
+						renderTemplate("Logovanje/novaSifra.html", korr, ress );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/sanker.html", korr );
+						renderTemplate("Korisnici/sanker.html", korr, ress );
 					}
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Kuvar")){
 					List<Korisnik> korr= new ArrayList<>();
-					korr.add(kor);
+					korr.add(kor);		
+					List<Restoran> r = Restoran.findAll();
+					List<Restoran> ress= new ArrayList<>();
+					for(Restoran res : r)
+					{
+						if(res.nazivRestorana.equals(session.get("restoran"))){
+							ress.add(res);
+						}
+					}
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr );
+						renderTemplate("Logovanje/novaSifra.html", korr, ress );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/kuvar.html", korr );
+						renderTemplate("Korisnici/kuvar.html", korr, ress );
 					}
 				}
 
@@ -133,15 +152,29 @@ public class Logovanje extends Controller{
 				}
 
 				if(kor.uloga.nazivUloge.toString().equals("Ponudjac")){
+//  OBAVESTENJE O NOVIM PONUDAMA - dole
+					List<Ponuda> ponude = Ponuda.findAll();
+					List<Ponuda> listaNovihOdgovora = new ArrayList<>();
+					for(int i=0; i<ponude.size(); i++)
+					{
+						if( ponude.get(i).saljePonudu.equals(session.get("ime")) && ponude.get(i).procitano.equals("NOVI ODGOVOR")) 
+						{			
+							listaNovihOdgovora.add(ponude.get(i));
+						}
+					}
+					Integer brojPonuda2 = listaNovihOdgovora.size();
+					List<Integer> brojPonuda = new ArrayList<>();
+					brojPonuda.add(brojPonuda2);
+//	OBAVESTENJE O NOVIM PONUDAMA - gore
 					List<Korisnik> korr= new ArrayList<>();
 					korr.add(kor);
 					if(kor.brojPoseta==0){
 						kor.save();
-						renderTemplate("Logovanje/novaSifra.html", korr );
+						renderTemplate("Logovanje/novaSifra.html", korr, brojPonuda );
 					}else{
 						kor.brojPoseta+=1;
 						kor.save();
-						renderTemplate("Korisnici/ponudjac.html", korr );
+						renderTemplate("Korisnici/ponudjac.html", korr, brojPonuda );
 					}
 				}
 

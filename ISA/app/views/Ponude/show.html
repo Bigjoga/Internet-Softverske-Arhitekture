@@ -71,6 +71,7 @@ function sync(item){
   <li><a id = "next"><img src="@{'/public/images/next.gif'}"/></a></li>
   <li><a id = "last"><img src="@{'/public/images/last.gif'}"/></a></li>
   <li><a href="@{Ponude.show("posalji",null)}" id = "add"> posalji ponudu<img src="@{'/public/images/add.gif'}"/></a></li>
+  <li><a href="@{Ponude.show("procitano",null)}" id = "procitano"> oznaci sve ponude procitanim<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Logout/show" id = "nextform">Izloguj se<img src="@{'/public/images/nextform.gif'}"/></a></li>
   <li><a href="http://localhost:9000/Korisnici/homepage" id = "nextform">Home page<img src="@{'/public/images/nextform.gif'}"/></a></li>
 </ul>
@@ -110,6 +111,9 @@ function sync(item){
 		  #{/if}
 		  #{if mode == 'edit'}
 		    @{Ponude.edit()}
+		  #{/if}
+		  #{if mode == 'procitano'}
+		    @{Ponude.procitano()}
 		  #{/if}
 #{/set}
 

@@ -19,6 +19,9 @@ public class Korisnici extends Controller{
 	
 	public static void show(String mode, Long selectedIndex)
 	{
+		if(mode == null || mode.equals(""))
+			mode = "edit";
+		
 		if(session.isEmpty()){
 			redirect("http://localhost:9000/logovanje/show");
 		}
@@ -52,17 +55,7 @@ public class Korisnici extends Controller{
 		List<Korisnik> listaKorisnikaZaPrikaz = new ArrayList<Korisnik>();
 		List<Restoran> restorani = Restoran.findAll();
 		Restoran rest = new Restoran();
-		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();		
-	//	-----------
-/*		List<UlogaKorisnika> ulogee = UlogaKorisnika.findAll();
-		List<UlogaKorisnika> uloga = new ArrayList<>();
-		
-		for(int i=0; i<ulogee.size(); i++)
-		{
-				uloga.add(ulogee.get(i));
-		}
-*/	//-----------	
-		
+		List<UlogaKorisnika> uloge = UlogaKorisnika.findAll();
 		
 		for(int i=0; i<korisnici.size(); i++)
 		{
@@ -87,7 +80,8 @@ public class Korisnici extends Controller{
 		}
 		if(listaKorisnikaZaPrikaz==null || listaKorisnikaZaPrikaz.isEmpty()==true)
 		{
-			System.out.println("LKZP je NULL:");
+			System.out.println("listaKorisnikaZaPrikaz je prazna");
+			render(rest,ulogezaprikaz,listaKorisnikaZaPrikaz,mode,selectedIndex);
 		}
 		else
 		{
@@ -199,11 +193,9 @@ public class Korisnici extends Controller{
 				ulo=uloge.get(i);
 		}
 		korisnik.uloga = ulo;
-//		UlogaKorisnika ulkor = new UlogaKorisnika();
-//		ulkor.nazivUloge = "Menadzer";
 		Restoran rest = Restoran.findById(restoran);
 		korisnik.restoran = rest;
-//		korisnik.uloga = ulkor;
+
 		korisnik.save();
 		showMenadzeraZaRestoran("edit",korisnik.id);
 	}

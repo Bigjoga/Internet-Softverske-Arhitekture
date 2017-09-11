@@ -21,12 +21,19 @@ button { margin: -20px -50px;
 </h1>
 
 </br>
-<h2> Ime i prezime: 
+<h2> Ulogovani korisnik je:
 	#{list items:korr, as:'k'}
 	<tr>
 		<td>${k.ime}</td>
 	</tr>
 	#{/list}
+	 , iz restorana "
+	#{list items:ress, as:'r'}
+	<tr>
+		<td>${r.nazivRestorana}</td>
+	</tr>
+	#{/list}
+	"
 </h2>
 
 </br>
