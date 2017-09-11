@@ -17,4 +17,6 @@ public class Dostavi extends Model{
 		super();
 		this.stavkaJelovnika = stavkaJelovnika;
 	}
+	
+	
 }
